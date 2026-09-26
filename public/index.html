@@ -139,6 +139,50 @@ a{color:inherit}
 
 <script>
 (function(){
+  try{if(localStorage.getItem("dot_notrack"))return}catch(e){}
+  if(navigator.webdriver||/bot|crawl|spider|headless|lighthouse/i.test(navigator.userAgent))return;
+  var sid;try{sid=sessionStorage.getItem("dsid")}catch(e){}
+  if(!sid){sid=Math.random().toString(36).slice(2,12)+Date.now().toString(36);try{sessionStorage.setItem("dsid",sid)}catch(e){}}
+  var ref="";try{if(document.referrer){var h=new URL(document.referrer).hostname.replace(/^www\./,"");if(h!==location.hostname.replace(/^www\./,""))ref=h}}catch(e){}
+  var dev=matchMedia("(max-width:760px)").matches?"mobile":"desktop";
+  var q={views:{},ms:{},sec:{}},dirty=false,cur="door",frames={},last=Date.now(),hello=true;
+  function label(f){
+    try{
+      var d=f.contentDocument,y=f.contentWindow.innerHeight/2,hit=null,els=d.querySelectorAll("header,section,footer");
+      for(var i=0;i<els.length;i++){var r=els[i].getBoundingClientRect();if(r.top<=y&&r.bottom>y)hit=els[i]}
+      if(!hit)return"";
+      var n=hit.id||hit.getAttribute("aria-label")||"";
+      if(!n){var lb=hit.getAttribute("aria-labelledby"),e=lb&&d.getElementById(lb);n=e?e.textContent.trim().slice(0,40):hit.tagName.toLowerCase()}
+      return n;
+    }catch(e){return""}
+  }
+  function add(ms){
+    q.ms[cur]=(q.ms[cur]||0)+ms;dirty=true;
+    if(cur!=="door"&&frames[cur]){var l=label(frames[cur]);if(l){var k=cur+"|"+l;q.sec[k]=(q.sec[k]||0)+ms}}
+  }
+  function flush(){
+    if(!dirty&&!hello)return;
+    var p={sid:sid,d:q};if(hello){p.ref=ref;p.dev=dev;hello=false}
+    q={views:{},ms:{},sec:{}};dirty=false;
+    var body=JSON.stringify(p);
+    try{if(navigator.sendBeacon&&navigator.sendBeacon("/api/track",new Blob([body],{type:"text/plain"})))return}catch(e){}
+    try{fetch("/api/track",{method:"POST",body:body,keepalive:true})}catch(e){}
+  }
+  function touch(){last=Date.now()}
+  ["pointermove","scroll","keydown","touchstart","click"].forEach(function(t){addEventListener(t,touch,{passive:true,capture:true})});
+  setInterval(function(){if(!document.hidden&&Date.now()-last<60000)add(1000)},1000);
+  setInterval(flush,10000);
+  document.addEventListener("visibilitychange",function(){if(document.hidden)flush()});
+  addEventListener("pagehide",flush);
+  window.__dotPage=function(slug){cur=slug||"door";q.views[cur]=(q.views[cur]||0)+1;dirty=true;touch();setTimeout(flush,1500)};
+  window.__dotFrame=function(slug,f){
+    frames[slug]=f;
+    try{["pointermove","scroll","keydown","touchstart","click"].forEach(function(t){f.contentWindow.addEventListener(t,touch,{passive:true,capture:true})})}catch(e){}
+  };
+})();
+</script>
+<script>
+(function(){
   var SITES={
     "creative-studio":{id:"studio",name:"dot. creative studio",title:"dot. creative studio",color:"#FF0000",on:"#FFFFFF",fav:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAA/1BMVEX/AAAAAAD//Pz/AAD/AAD/AAD/AAD/pqb/AAD/Zmb/AAD/mZn/ycn/Fxf/Jib/SUn/5eX/AAD/Vlb/0tL/Nzf/t7f/d3f/h4cAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAVyzGjAAAAQHRSTlP+AP8EjM8v/2z/sf///////13///////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA0R9VCQAAAhlJREFUeNqtV9mWgyAMvYMLIuC+/P+fjixVVKZ1SPPQ44HkktykkODnJllmfss+rwtYKeq8L4+dsyBmnpW5tz2kyMssBnEFMErVzdpjVJlVeAOwHZDleCN5dnUCl+MrfJDq4gRO9mWBj1KUJwSE7ld4JFUYBgL7HA8lDxCw22c1Hkud7QhIsQ8R8PL/X/YbwisKD/A8/oCHA+Ax/6H0DgEu/0gQVw+wBBYpAIUlEokB+IIyABsOEsW4gJQMhJkAwQHrApIZ8CwgMQV7IpBWA0ctIJ1CRyMiESyccxHVH8QtBkQimBlj/L488Y6pWwzo75o8DhBd7hFSMA2i1aEHzSBE25gvLYTalkchRHMiAcdFMhkNxuR+lHALTA1Ay3aRp4sFO4dOZR7Z7D3g1lg5mwCgO7F4fHZGfXNvsFocwuhOm2NmY2iU6hygUlM0Q/YIG550AOP2a7NmkJRfn/8uCbE7NziA7gXY+J0PANZMm6/18KB9+TZ6gFFDD3EAzTz3k+fA60MbpPUVWreR+iYGNq6cqcUCWMNOys5TcCTiXM9HHha3PWvtfNHykvklAlAEhbRVm5SLyVHbtjZVjVilXIe99JpFcnmuxBqkf7Mp5Z4G0KOkAZSgXIn2QiFfaeRLlXytf+FhIT5t5MeV/ryTGwx6i0NusuhtHr3RpLe65Gab3u7TBw76yEMfur4w9tEHT/ro+4Xh+9/j/y8CshN7iavSWQAAAABJRU5ErkJggg==",bg:function(){return "#FFFFFF"}},
     "tech-studio":{id:"tech",name:"dot. tech studio",title:"dot. tech studio | AI, business systems and data in Saudi Arabia",color:"#00F4C9",on:"#121D21",fav:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAA/1BMVEUA9MkAAAD7/v4A//+q++0A9coA9MnN/PQA/7oA9MkA9cpP99mU+ugu9dIA9cpl+N4Av78A9cgA9Ml0+eEAqqoA/wAA/38A6LwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABr518uAAAAQHRSTlP+AP8B/4vQ/wMusf///2z/BBVc/wMBAhcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAhSgeYgAAAhlJREFUeNqtl+2CoyAMRa+AggJSdXb3/d90+SpidTqWTH5Ui8kRkggJupNwFX7HtZ8GRBmmfh3DmOJnbZzMvZIa+2y7y9CPX+npe4BXWOaTdWbMS1R4A/AvWHq8kX55ncQB8Oi6GT/IHNWuAbwbB/wo03hYBurpz7glc70MVPY9bkpfEVDs1YTbMj0KAS32NSEB+KP7yN4TugevAOr++nc/qB3AuxUfy5qiiRR/NEjKhwBQf4cWwBA/W4QJzGiSOUwBPoILGmXxsYT/NPpWQO+N4T9gNMvyh0O1eiB5QYGroR0wKI62HNhzAe0uTG4EP69gE0Jsl/ranZIJFysQjDFxHrbiYnjEehtwObyidoHVTh80/YDTNt46J/2wdM7ZgxOwbyQ2aDBmCsClASY9VbMi5rCxoPgwqQjJRAaIaCyTTQVgBy/ut1HdFhC2cPH/bbhqm0geKKW9jlDWB0wCBIMYNRfs8rj4PiVcmZxOgAK0GSDeA3QBVDPQzydPQLjqbwgsv8BmH5isH0nmCWby6MTXNUgjmNwSKvk/msk9TE/PXMRhY/ndyHMxL5HfLgAD6hNpM2YLftM6pZ91xosuYbObEeaYiRNIX3NI5ZUGWDHSAOPVhvLR6UTf0sibKnlbpx8s1KONfLjSj3dygUEvcehFFrnMoxea9FKXXGzTy316w0FveehN1y+0fXEZ/yiNJ731/YXm++P2/z+TbxPLd5AcawAAAABJRU5ErkJggg==",bg:function(){return (window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches)?"#121D21":"#EEF3F1"}},
@@ -171,7 +215,7 @@ a{color:inherit}
       f.hidden=current!==slug;
       frames[slug]=f;
       return new Promise(function(res){
-        var done=false;function ok(){if(!done){done=true;res(f)}}
+        var done=false;function ok(){if(!done){done=true;try{window.__dotFrame&&window.__dotFrame(slug,f)}catch(e){}res(f)}}
         f.addEventListener("load",ok);setTimeout(ok,8000);
         f.src=url;wrap.appendChild(f);
       });
@@ -223,7 +267,7 @@ a{color:inherit}
   function show(slug,opts){
     opts=opts||{};
     if(slug===current&&!opts.initial)return;
-    var token=++seq;current=slug;
+    var token=++seq;current=slug;try{window.__dotPage&&window.__dotPage(slug)}catch(e){}
     setBar(slug);
     document.title=slug?SITES[slug].title:DOOR_TITLE;
     fav.setAttribute("href",slug?SITES[slug].fav:DOOR_FAV);
