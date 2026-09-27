@@ -309,9 +309,80 @@ def foot_links_for(lang, current_path):
     parts = [f'<a href="{u}">{html.escape(t)}</a>' for _, t, u in entries]
     return " &middot; ".join(parts)
 
+DOOR_PANELS = ["creative-studio", "tech-studio", "creative-consultancy"]  # the shell's own 3 buttons
+
+def build_ar_home_page(sections, raw_shell):
+    """The front-door shell itself (public/index.html) turns out to have no
+    Arabic content at all — its button labels are English-only, unlike the
+    three sub-sites it links to. So this isn't a case of untangling mixed
+    languages at one URL (like the sub-sites were); it's building a real
+    Arabic entry point that didn't exist, reusing the real Arabic sentences
+    already sourced from each sub-site wherever one exists."""
+    panel_re = re.compile(r'<button type="button" class="panel p-\w+" data-site="([\w-]+)" aria-label="([^"]+)"')
+    en_taglines = dict(panel_re.findall(raw_shell))
+
+    ar_dict_tech = parse_js_object(sections["tech"], "const AR = {")
+    ar_dict_profile = parse_js_object(sections["profile"], "const AR = {")
+    cc_ar_items = extract(clean_ar_spans(sections["cc"]))
+    cc_lead = next((t for tag, t in cc_ar_items if tag == "p"), None)
+
+    # slug -> (arabic tagline or None, target url)
+    entries = [
+        ("creative-studio", None, f"{DOMAIN}/creative-studio/", "creative studio (بالإنجليزية)"),
+        ("tech-studio", clean_text(ar_dict_tech.get("hero.lead", "")), f"{DOMAIN}/ar/tech-studio/", "dot. tech studio"),
+        ("creative-consultancy", cc_lead, f"{DOMAIN}/ar/creative-consultancy/", "dot. creative consultancy"),
+    ]
+    secondary = [
+        ("tech-studio-profile", clean_text(ar_dict_profile.get("about.lead", "")), f"{DOMAIN}/ar/tech-studio-profile/", "dot. tech studio — الملف التعريفي"),
+        ("tech-studio-results", None, f"{DOMAIN}/ar/{CASE_STUDY_PATH}/", "dot. tech studio — نتائج العملاء"),
+    ]
+
+    title = "dot. | ستوديو إبداعي وستوديو تقني واستشارات إبداعية"
+    desc = ("دوت. في الرياض: ستوديو إبداعي للعلامات التجارية، وستوديو تقني للذكاء الاصطناعي وأنظمة الأعمال، "
+            "واستشارات إبداعية تُصلح الشركة وتروي قصتها.")
+    h1 = "دوت. لديها ثلاثة مواقع. اختر واحدًا."
+
+    parts = [f'<p class="lead">{html.escape(desc)}</p>']
+    for slug, ar_line, url, label in entries:
+        parts.append(f'<h2><a href="{url}">{html.escape(label)}</a></h2>')
+        if ar_line:
+            parts.append(f"<p>{html.escape(ar_line)}</p>")
+        elif slug == "creative-studio":
+            parts.append("<p>لا تتوفر نسخة عربية من هذا الموقع حاليًا.</p>")
+    parts.append("<h2>المزيد</h2><ul>")
+    for slug, ar_line, url, label in secondary:
+        parts.append(f'<li><a href="{url}">{html.escape(label)}</a></li>')
+    parts.append("</ul>")
+    body = "\n".join(parts)
+
+    schema_blocks = [{
+        "@context": "https://schema.org", "@type": "WebPage", "name": title, "description": desc,
+        "url": f"{DOMAIN}/ar/", "isPartOf": {"@type": "WebSite", "name": "dot.", "url": DOMAIN},
+        "about": {"@type": "Organization", "name": "dot."}, "inLanguage": "ar",
+    }]
+    page = render_page(
+        lang="ar", title=title, desc=desc, url=f"{DOMAIN}/ar/", color="#0068FF", on="#FFFFFF",
+        name="dot.", h1=h1, body=body, hash_="", schema_blocks=schema_blocks,
+        home_url=f"{DOMAIN}/ar/", foot_links=foot_links_for("ar", ""),
+        en_url=f"{DOMAIN}/", ar_url=f"{DOMAIN}/ar/",
+    )
+    # This page's own CTA should point at the real interactive front door,
+    # not at a specific brand's hash — override the generic one.
+    page = page.replace(
+        f'<a class="cta" href="{DOMAIN}/#">{("افتح الموقع التفاعلي الكامل &larr;")}</a>',
+        f'<a class="cta" href="{DOMAIN}/">افتح الموقع التفاعلي الكامل &larr;</a>',
+    )
+    outdir = os.path.join(ROOT, "public", "ar")
+    os.makedirs(outdir, exist_ok=True)
+    open(os.path.join(outdir, "index.html"), "w", encoding="utf-8").write(page)
+    print(f"wrote public/ar/index.html ({len(page)} bytes)")
+    return f"{DOMAIN}/ar/"
+
 def build():
     sections = load_sections()
+    raw_shell = open(SRC, encoding="utf-8").read()
     en_urls, ar_urls = [], []
+    ar_urls.append(build_ar_home_page(sections, raw_shell))
 
     # ---- tech-studio's bilingual client-results data (shared by that page
     #      and by the tech-studio / tech-profile "see all" link) ----
@@ -477,6 +548,7 @@ def build():
 
 ## Businesses
 
+- Arabic entry point: [{DOMAIN}/ar/]({DOMAIN}/ar/)
 - [dot. creative studio]({DOMAIN}/creative-studio/): brand strategy, identity, and advertising campaigns. (English only.)
 - [dot. tech studio]({DOMAIN}/tech-studio/) / [Arabic]({DOMAIN}/ar/tech-studio/): AI and automation, business systems, data, and rescuing stalled technology projects, for regulated industries such as insurance and payments in Saudi Arabia.
 - [dot. tech studio — company profile]({DOMAIN}/tech-studio-profile/) / [Arabic]({DOMAIN}/ar/tech-studio-profile/): the full company profile for dot. tech studio.
