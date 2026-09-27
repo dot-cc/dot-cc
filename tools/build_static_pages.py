@@ -52,14 +52,144 @@ BRANDS = {
 PRICING_Q = "How much does it cost to work with {name}?"
 PRICING_A = ("Engagements start at 3,750 SAR per month. The exact scope and price are set "
              "after an initial conversation about what you need.")
-MANUAL_FAQS = {slug: [(PRICING_Q.format(name=b["name"]), PRICING_A)] for slug, b in BRANDS.items()}
+
+# Extra, brand-specific FAQ pairs for AEO: real, specific facts already stated
+# elsewhere on each brand's own page (case studies, process descriptions,
+# tooling), phrased as the direct questions people actually ask an assistant
+# — not generic filler. Keyed by BRANDS slug; tech-studio and tech-profile
+# are the same company on two pages, so they share the same answers.
+EXTRA_FAQS = {
+    "creative-studio": [
+        ("What kind of work does dot. creative studio do?",
+         "Brand strategy, naming, visual identity and advertising campaigns for companies in "
+         "Saudi Arabia, reaching people three ways: mass reach (outdoor and billboard campaigns, "
+         "TV and press, media buying), direct and hands-on work (exhibition booths, activations "
+         "and events), and always-on presence (social media, content and brand collateral)."),
+        ("Who has dot. creative studio worked with?",
+         "Twenty brands and counting, including a full identity rebuild for Syrian Airlines (new "
+         "logo, full identity system and uniforms), the identity for Ishraqat Festival — the "
+         "largest arts and cultural festival Syria has seen in recent memory, staged at the "
+         "Damascus Opera House — and brand systems for Omnisphere, Al Saif Brands and Al Dahayan, "
+         "among others."),
+        ("Is dot. creative studio only based in Saudi Arabia?",
+         "dot. creative studio is based in Riyadh, Saudi Arabia, and works mainly with Saudi "
+         "companies, but has also delivered brand work regionally, including the Syrian Airlines "
+         "national rebrand and the Ishraqat Festival identity in Damascus."),
+    ],
+    "tech-studio": [
+        ("What industries does dot. tech studio work with?",
+         "Regulated and operational industries where a wrong number has a cost and a missed date "
+         "has a consequence: insurance (motor, medical, general, marine and life), payments and "
+         "financial technology, manufacturing and industrial IoT, food safety and food technology, "
+         "hospitality supply, events, logistics, the public sector, enterprise retail and e-commerce."),
+        ("How does an engagement with dot. tech studio start?",
+         "With a paid diagnosis month: a month reading your systems, data, vendors and daily "
+         "workflow, ending in a written 90-day plan the owner signs. After that, work proceeds in "
+         "small paid steps — the module that costs you most first, checked delivery tied to "
+         "milestones, then monthly run-and-grow."),
+        ("Where is client data hosted?",
+         "In a Saudi cloud region by default — Oracle Cloud in Riyadh or Google Cloud in Dammam — "
+         "with one tenant per client, nightly backups, and export to Excel at any time."),
+        ("How experienced is dot. tech studio's team?",
+         "Our technology lead brings more than 19 years inside Saudi insurers, payment companies, "
+         "factories and food technology companies, holds a PMP certification and an Oracle "
+         "Certified Professional credential, and has delivered work including an insurance "
+         "quotation system that moved an insurer from rank 32 of 34 to rank 1 on the SAMA price "
+         "aggregator."),
+    ],
+    "creative-consultancy": [
+        ("What's different about how dot. creative consultancy works?",
+         "Most consultancies are strong on one side only. dot. creative consultancy works in the "
+         "space between the business side (diagnosis, pricing, sales systems, operations) and the "
+         "creative side (brand strategy, positioning, identity, campaigns) — fixing the business "
+         "first, in that order, then building the story on what is now true."),
+        ("What are the ways to work with dot. creative consultancy?",
+         "Four fixed-scope engagements, each with a fixed list of deliverables and no meters "
+         "running: Diagnose (find the real numbers and what's holding the company back), Fix "
+         "(rebuild offer, pricing, sales and operations), Build (the full method through to brand, "
+         "launch and handover), and Advise (a senior partner on call for leadership)."),
+        ("Who does dot. creative consultancy typically work with?",
+         "Founders, CEOs, CMOs, and institutions and public-sector entities who want clarity, "
+         "relevance and impact more than comfort."),
+        ("What is \"the dot. method\"?",
+         "Five steps, always in this order: Listen (understand your goals, story and market), "
+         "Find (build the real numbers — cost, margin, win rate), Fix (what you sell, what you "
+         "charge, how it's delivered), Express (positioning, message and identity built on the "
+         "fix), and Hand over (your team runs it, we step back to advise)."),
+    ],
+}
+EXTRA_FAQS["tech-profile"] = EXTRA_FAQS["tech-studio"]
+
+MANUAL_FAQS = {slug: [(PRICING_Q.format(name=b["name"]), PRICING_A)] + EXTRA_FAQS.get(slug, [])
+                for slug, b in BRANDS.items()}
 
 # Arabic versions of the same curated facts. Composed by hand (not extracted),
 # following the source's own convention of keeping the Latin brand name as-is
 # inside an Arabic sentence.
 PRICING_Q_AR = "كم تبلغ تكلفة العمل مع {name}؟"
 PRICING_A_AR = "تبدأ المشاريع من 3,750 ريال سعودي شهريًا. يُحدَّد النطاق والسعر الدقيقان بعد محادثة أولى حول ما تحتاجه."
-MANUAL_FAQS_AR = {slug: [(PRICING_Q_AR.format(name=b["name"]), PRICING_A_AR)] for slug, b in BRANDS.items()}
+
+EXTRA_FAQS_AR = {
+    "creative-studio": [
+        ("ما نوع الأعمال التي يقدّمها استوديو dot. الإبداعي؟",
+         "استراتيجية العلامة التجارية، والتسمية، والهوية البصرية، والحملات الإعلانية لشركات في "
+         "السعودية، عبر ثلاث طرق للوصول إلى الجمهور: الانتشار الواسع (حملات خارجية ولوحات إعلانية، "
+         "تلفزيون وصحافة، شراء إعلامي)، والعمل المباشر (أجنحة معارض، فعاليات وتفعيلات)، والحضور "
+         "المستمر (سوشيال ميديا، محتوى، ومطبوعات العلامة)."),
+        ("مع من عمل استوديو dot. الإبداعي؟",
+         "عشرون علامة تجارية وأكثر، من بينها إعادة بناء كاملة لهوية Syrian Airlines (شعار جديد، "
+         "نظام هوية كامل، وزيّ موحّد)، وهوية مهرجان Ishraqat، أكبر مهرجان فني وثقافي تشهده سوريا في "
+         "السنوات الأخيرة، أُقيم على مسرح دار أوبرا دمشق، بالإضافة إلى أنظمة هوية لعلامات مثل "
+         "Omnisphere وAl Saif Brands وAl Dahayan."),
+        ("هل يعمل استوديو dot. الإبداعي داخل السعودية فقط؟",
+         "استوديو dot. الإبداعي مقرّه الرياض، المملكة العربية السعودية، ويعمل غالبًا مع شركات "
+         "سعودية، لكنه قدّم أيضًا أعمالًا إقليمية، من بينها إعادة بناء هوية Syrian Airlines الوطنية "
+         "وهوية مهرجان Ishraqat في دمشق."),
+    ],
+    "tech-studio": [
+        ("ما القطاعات التي يعمل معها dot. tech studio؟",
+         "قطاعات خاضعة للتنظيم وتشغيلية، حيث للرقم الخاطئ ثمن وللموعد الفائت أثر: التأمين (المركبات، "
+         "الطبي، العام، البحري، والحياة)، والمدفوعات والتقنية المالية، والتصنيع وإنترنت الأشياء "
+         "الصناعي، وسلامة الغذاء وتقنياته، والإمداد الفندقي، والفعاليات، والخدمات اللوجستية، "
+         "والقطاع العام، وتجارة التجزئة المؤسسية، والتجارة الإلكترونية."),
+        ("كيف يبدأ العمل مع dot. tech studio؟",
+         "بشهر تشخيص مدفوع: شهر نقرأ فيه أنظمتك وبياناتك ومورّديك وسير عملك اليومي، وينتهي بخطة "
+         "مكتوبة لتسعين يومًا يوقّعها المالك. بعدها يسير العمل بخطوات صغيرة مدفوعة: الوحدة الأكثر "
+         "كلفة عليك أولًا، ثم تسليم يُتحقق منه ومرتبط بمراحل، ثم تشغيل وتوسّع شهري."),
+        ("أين تُستضاف بيانات العميل؟",
+         "داخل منطقة سحابية سعودية بشكل افتراضي — Oracle Cloud في الرياض أو Google Cloud في الدمام "
+         "— بمستأجر مستقل لكل عميل، ونسخ احتياطي كل ليلة، وتصدير إلى Excel في أي وقت."),
+        ("ما مدى خبرة فريق dot. tech studio؟",
+         "يحمل قائدنا التقني أكثر من 19 عامًا من الخبرة داخل شركات التأمين والمدفوعات والمصانع "
+         "وتقنيات الأغذية في السعودية، وشهادة PMP، وشهادة Oracle Certified Professional، وأنجز "
+         "أعمالًا من بينها نظام عرض أسعار تأمين رفع الشركة من المرتبة 32 من 34 إلى المرتبة الأولى "
+         "على منصة مقارنة الأسعار التابعة للبنك المركزي السعودي (ساما)."),
+    ],
+    "creative-consultancy": [
+        ("ما الذي يميّز طريقة عمل dot. creative consultancy؟",
+         "معظم شركات الاستشارات قوية في جانب واحد فقط. تعمل dot. creative consultancy في المساحة "
+         "بين جانب الأعمال (التشخيص، التسعير، أنظمة المبيعات، العمليات) وجانب الإبداع (استراتيجية "
+         "العلامة، التموضع، الهوية، الحملات) — فتُصلح الشركة أولًا، بهذا الترتيب، ثم تبني القصة على "
+         "أساس ما أصبح حقيقيًا الآن."),
+        ("ما هي طرق العمل مع dot. creative consultancy؟",
+         "أربعة نطاقات عمل ثابتة، لكل منها قائمة مخرجات محددة ودون احتساب بالساعة: التشخيص (اكتشاف "
+         "الأرقام الحقيقية وما يعيق الشركة)، الإصلاح (إعادة بناء العروض والتسعير والمبيعات "
+         "والعمليات)، البناء (المنهج الكامل حتى العلامة والإطلاق والتسليم)، والاستشارة (شريك أول "
+         "تحت الطلب للقيادة)."),
+        ("من هم عملاء dot. creative consultancy المعتادون؟",
+         "المؤسسون، والرؤساء التنفيذيون، ومديرو التسويق، والمؤسسات والجهات الحكومية الذين يريدون "
+         "الوضوح والصلة والأثر أكثر من الراحة."),
+        ("ما هو \"منهج dot.\"؟",
+         "خمس خطوات، بهذا الترتيب دائمًا: الاستماع (فهم أهدافك وقصتك وسوقك)، الاكتشاف (بناء الأرقام "
+         "الحقيقية — التكلفة، الهامش، نسبة الفوز)، الإصلاح (ماذا تبيع، وبكم، وكيف يُسلَّم)، التعبير "
+         "(التموضع والرسالة والهوية المبنية على الإصلاح)، والتسليم (يدير فريقك الأمر، ونتراجع "
+         "لتقديم الاستشارة)."),
+    ],
+}
+EXTRA_FAQS_AR["tech-profile"] = EXTRA_FAQS_AR["tech-studio"]
+
+MANUAL_FAQS_AR = {slug: [(PRICING_Q_AR.format(name=b["name"]), PRICING_A_AR)] + EXTRA_FAQS_AR.get(slug, [])
+                   for slug, b in BRANDS.items()}
 
 # ---------------------------------------------------------------------------
 # creative-studio has no bilingual markup in the source to extract (see the
@@ -573,9 +703,24 @@ def build_contact_page(lang):
         ]
         get_in_touch = "Get in touch"
         email_label, loc_label = "Email", "Location"
-        pricing_h2 = "Pricing"
-        faq_q = "How much does it cost to work with dot.?"
-        faq_a = PRICING_A
+        faq_h2 = "Frequently asked questions"
+        faqs = [
+            ("How much does it cost to work with dot.?", PRICING_A),
+            ("What's the difference between dot. creative studio, dot. tech studio, and "
+             "dot. creative consultancy?",
+             "dot. creative studio builds brand strategy, identity and advertising campaigns. "
+             "dot. tech studio puts AI to work, builds business systems and rescues stalled tech "
+             "projects for regulated industries. dot. creative consultancy fixes the business "
+             "first — diagnosis, pricing, sales and operations — then builds the brand story on "
+             "top of that fix. All three are part of the same Riyadh-based team."),
+            ("Is dot. based only in Riyadh, or does it work with companies elsewhere?",
+             "dot. is based in Riyadh, Saudi Arabia, and works mainly with companies across Saudi "
+             "Arabia. dot. creative studio has also delivered brand work regionally, including a "
+             "national airline rebrand and a cultural festival identity in Damascus."),
+            ("Can I work with dot. in Arabic?",
+             "Yes. dot. tech studio, dot. creative consultancy and the client-results page are "
+             "all published in Arabic, and conversations can be conducted in Arabic throughout."),
+        ]
         cta = "Open the full interactive site &rarr;"
     else:
         title = "تواصل مع dot. | الرياض، المملكة العربية السعودية"
@@ -592,9 +737,23 @@ def build_contact_page(lang):
         ]
         get_in_touch = "تواصل معنا"
         email_label, loc_label = "البريد الإلكتروني", "الموقع"
-        pricing_h2 = "الأسعار"
-        faq_q = "كم تبلغ تكلفة العمل مع dot.؟"
-        faq_a = PRICING_A_AR
+        faq_h2 = "الأسئلة الشائعة"
+        faqs = [
+            ("كم تبلغ تكلفة العمل مع dot.؟", PRICING_A_AR),
+            ("ما الفرق بين dot. creative studio وdot. tech studio وdot. creative consultancy؟",
+             "يبني dot. creative studio استراتيجية العلامة التجارية وهويتها وحملاتها الإعلانية. "
+             "يوظّف dot. tech studio الذكاء الاصطناعي في العمل، ويبني أنظمة الأعمال، وينقذ "
+             "المشاريع التقنية المتعثرة للقطاعات الخاضعة للتنظيم. أما dot. creative consultancy "
+             "فتُصلح الشركة أولًا — التشخيص والتسعير والمبيعات والعمليات — ثم تبني قصة العلامة على "
+             "أساس هذا الإصلاح. والثلاثة جزء من فريق واحد مقرّه الرياض."),
+            ("هل يعمل dot. في الرياض فقط، أم مع شركات في أماكن أخرى؟",
+             "مقرّ dot. في الرياض، المملكة العربية السعودية، ويعمل غالبًا مع شركات في جميع أنحاء "
+             "السعودية. كما قدّم dot. creative studio أعمالًا إقليمية، من بينها إعادة بناء هوية "
+             "وطنية لخطوط طيران وهوية مهرجان ثقافي في دمشق."),
+            ("هل يمكنني العمل مع dot. باللغة العربية؟",
+             "نعم. صفحات dot. tech studio وdot. creative consultancy وصفحة نتائج العملاء متوفرة "
+             "جميعها باللغة العربية، ويمكن أن تجري المحادثات بالعربية بالكامل."),
+        ]
         cta = "افتح الموقع التفاعلي الكامل &larr;"
 
     parts = [
@@ -608,9 +767,10 @@ def build_contact_page(lang):
     for name, sdesc, surl in studios:
         parts.append(f'<h3><a href="{surl}">{html.escape(name)}</a></h3>')
         parts.append(f'<p>{html.escape(sdesc)}</p>')
-    parts.append(f'<h2>{html.escape(pricing_h2)}</h2>')
-    parts.append(f'<h3>{html.escape(faq_q)}</h3>')
-    parts.append(f'<p>{html.escape(faq_a)}</p>')
+    parts.append(f'<h2>{html.escape(faq_h2)}</h2>')
+    for q, a in faqs:
+        parts.append(f'<h3>{html.escape(q)}</h3>')
+        parts.append(f'<p>{html.escape(a)}</p>')
     body = "\n".join(parts)
     body += "\n" + lead_form_html(lang, "contact", "dot.")
 
@@ -622,7 +782,8 @@ def build_contact_page(lang):
         "inLanguage": lang,
     }, {
         "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
-            {"@type": "Question", "name": faq_q, "acceptedAnswer": {"@type": "Answer", "text": faq_a}}
+            {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}}
+            for q, a in faqs
         ],
     }]
     page = render_page(
@@ -721,7 +882,7 @@ def build():
         faqs = faq_pairs(items) + MANUAL_FAQS.get(slug, [])
         faq_html = "\n".join(f"<h3>{html.escape(q)}</h3>\n<p>{html.escape(a)}</p>" for q, a in MANUAL_FAQS.get(slug, []))
         if faq_html:
-            body += f"\n<h2>Pricing</h2>\n{faq_html}"
+            body += f"\n<h2>Frequently asked questions</h2>\n{faq_html}"
         if slug in ("tech-studio", "tech-profile"):
             body += see_results_link["en"]
         body += "\n" + lead_form_html("en", slug, b["name"])
@@ -769,7 +930,7 @@ def build():
         ar_faqs = faq_pairs(ar_items) + MANUAL_FAQS_AR.get(slug, [])
         ar_faq_html = "\n".join(f"<h3>{html.escape(q)}</h3>\n<p>{html.escape(a)}</p>" for q, a in MANUAL_FAQS_AR.get(slug, []))
         if ar_faq_html:
-            ar_body += f"\n<h2>الأسعار</h2>\n{ar_faq_html}"
+            ar_body += f"\n<h2>الأسئلة الشائعة</h2>\n{ar_faq_html}"
         if slug in ("tech-studio", "tech-profile"):
             ar_body += see_results_link["ar"]
         ar_body += "\n" + lead_form_html("ar", slug, b["name"])
