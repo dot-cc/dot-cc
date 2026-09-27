@@ -31,6 +31,16 @@ BRANDS = {
         name="dot. creative consultancy"),
 }
 
+# Curated FAQ content — real facts confirmed by dot., not extracted mechanically.
+# Add entries here as more real facts (pricing, timelines, terms) are confirmed.
+PRICING_Q = "How much does it cost to work with {name}?"
+PRICING_A = ("Engagements start at 3,750 SAR per month. The exact scope and price are set "
+             "after an initial conversation about what you need.")
+MANUAL_FAQS = {
+    slug: [(PRICING_Q.format(name=b["name"]), PRICING_A)]
+    for slug, b in BRANDS.items()
+}
+
 def load_sections():
     s = open(SRC, encoding="utf-8").read()
     out = {}
@@ -168,7 +178,12 @@ def build():
         h1 = next((t for tag, t in items if tag == "h1"), b["name"])
         body = to_semantic_html(items)
         url = f"{DOMAIN}/{b['path']}/"
-        faqs = faq_pairs(items)
+        faqs = faq_pairs(items) + MANUAL_FAQS.get(slug, [])
+        faq_html = "\n".join(
+            f"<h3>{html.escape(q)}</h3>\n<p>{html.escape(a)}</p>" for q, a in MANUAL_FAQS.get(slug, [])
+        )
+        if faq_html:
+            body += f"\n<h2>Pricing</h2>\n{faq_html}"
         schema_blocks = [{
             "@context": "https://schema.org",
             "@type": "WebPage",
@@ -235,6 +250,10 @@ Sitemap: {DOMAIN}/sitemap.xml
 - [dot. tech studio]({DOMAIN}/tech-studio/): AI and automation, business systems, data, and rescuing stalled technology projects, for regulated industries such as insurance and payments in Saudi Arabia.
 - [dot. tech studio — company profile]({DOMAIN}/tech-studio-profile/): the full company profile for dot. tech studio.
 - [dot. creative consultancy]({DOMAIN}/creative-consultancy/): a business consultancy with creative solutions — finds what is holding a company back, fixes it, and builds the story to tell about it.
+
+## Pricing
+
+Engagements across all three businesses start at 3,750 SAR per month. Exact scope and price are set after an initial conversation.
 
 ## Contact
 
