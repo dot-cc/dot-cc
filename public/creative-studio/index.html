@@ -51,6 +51,16 @@ li{margin:0 0 8px}
 .cta{display:inline-block;margin:36px 0 8px;padding:14px 26px;background:var(--accent);color:var(--on);text-decoration:none;font-weight:700;border-radius:8px}
 .foot{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);color:var(--mut);font-size:13px}
 .foot a{color:var(--mut)}
+.leadform{margin-top:48px;padding:24px;background:var(--line);border-radius:12px}
+.leadform h2{margin-top:0}
+.lf-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.lf-field{flex:1 1 200px;display:flex;flex-direction:column;gap:4px}
+.lf-field label{font-size:13px;color:var(--mut)}
+.lf-field input,.lf-field select,.lf-field textarea{font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.lf-field textarea{min-height:90px;resize:vertical}
+.lf-hp{position:absolute;left:-9999px}
+.lf-submit{display:inline-block;margin-top:4px;padding:12px 24px;background:var(--accent);color:var(--on);border:0;border-radius:8px;font:inherit;font-weight:700;cursor:pointer}
+.lf-note{margin:10px 0 0;font-size:12px;color:var(--mut)}
 </style>
 </head>
 <body>
@@ -163,6 +173,34 @@ li{margin:0 0 8px}
 <h2>Pricing</h2>
 <h3>How much does it cost to work with dot. creative studio?</h3>
 <p>Engagements start at 3,750 SAR per month. The exact scope and price are set after an initial conversation about what you need.</p>
+<div class="leadform">
+<h2>Start a conversation</h2>
+<p class="lead" style="margin-bottom:16px">It takes about a minute.</p>
+<form action="https://formsubmit.co/info@dot-cs.com" method="POST">
+<input type="hidden" name="_subject" value="New enquiry from the dot. website (dot. creative studio)">
+<input type="hidden" name="_template" value="table">
+<input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="page" value="creative-studio">
+<input type="hidden" name="language" value="English">
+<input class="lf-hp" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+<div class="lf-row">
+<div class="lf-field"><label for="lf-name-creative-studio">Your name</label>
+<input id="lf-name-creative-studio" name="name" type="text" autocomplete="name" required></div>
+<div class="lf-field"><label for="lf-company-creative-studio">Company (optional)</label>
+<input id="lf-company-creative-studio" name="company" type="text" autocomplete="organization"></div>
+</div>
+<div class="lf-row">
+<div class="lf-field"><label for="lf-email-creative-studio">Email</label>
+<input id="lf-email-creative-studio" name="email" type="email" dir="ltr" autocomplete="email" required></div>
+</div>
+<div class="lf-row">
+<div class="lf-field"><label for="lf-msg-creative-studio">Where are you today?</label>
+<textarea id="lf-msg-creative-studio" name="message" required></textarea></div>
+</div>
+<button class="lf-submit" type="submit">Send message</button>
+<p class="lf-note">We use your details only to reply to you.</p>
+</form>
+</div>
 <a class="cta" href="https://www.dot-cc.com/#creative-studio">Open the full interactive site &rarr;</a>
 </main>
 <div class="foot">

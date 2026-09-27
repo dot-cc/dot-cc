@@ -342,6 +342,16 @@ li{{margin:0 0 8px}}
 .cta{{display:inline-block;margin:36px 0 8px;padding:14px 26px;background:var(--accent);color:var(--on);text-decoration:none;font-weight:700;border-radius:8px}}
 .foot{{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);color:var(--mut);font-size:13px}}
 .foot a{{color:var(--mut)}}
+.leadform{{margin-top:48px;padding:24px;background:var(--line);border-radius:12px}}
+.leadform h2{{margin-top:0}}
+.lf-row{{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px}}
+.lf-field{{flex:1 1 200px;display:flex;flex-direction:column;gap:4px}}
+.lf-field label{{font-size:13px;color:var(--mut)}}
+.lf-field input,.lf-field select,.lf-field textarea{{font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}}
+.lf-field textarea{{min-height:90px;resize:vertical}}
+.lf-hp{{position:absolute;left:-9999px}}
+.lf-submit{{display:inline-block;margin-top:4px;padding:12px 24px;background:var(--accent);color:var(--on);border:0;border-radius:8px;font:inherit;font-weight:700;cursor:pointer}}
+.lf-note{{margin:10px 0 0;font-size:12px;color:var(--mut)}}
 </style>
 </head>
 <body>
@@ -385,6 +395,58 @@ def render_page(*, lang, title, desc, url, color, on, name, h1, body, hash_, sch
     )
 
 CASE_STUDY_PATH = "tech-studio-results"
+
+# Mirrors the real, already-working contact form on the live interactive site
+# (creative-consultancy's #contactForm, posting to formsubmit.co/info@dot-cs.com)
+# rather than inventing a separate Netlify Forms setup — same destination
+# inbox, same proven delivery mechanism, no new backend to maintain. Static
+# pages currently ship zero JS and none is required here: formsubmit.co
+# handles the POST and its own redirect natively.
+FORMSUBMIT_ACTION = "https://formsubmit.co/info@dot-cs.com"
+
+def lead_form_html(lang, page_label, subject):
+    """page_label: which static page this is embedded on (goes in a plain,
+    non-underscore hidden field, so it shows up as a row in the emailed
+    table — same convention the real form already uses for its `language`
+    field). subject: human-readable page name for the email subject line."""
+    if lang == "ar":
+        heading, hint = "تواصل معنا", "تستغرق دقيقة تقريباً."
+        l_name, l_company, l_email, l_msg = "الاسم", "الشركة (اختياري)", "البريد الإلكتروني", "أين تقف اليوم؟"
+        submit, note = "أرسل الرسالة", "نستخدم بياناتك للرد عليك فقط."
+        lang_value = "Arabic"
+    else:
+        heading, hint = "Start a conversation", "It takes about a minute."
+        l_name, l_company, l_email, l_msg = "Your name", "Company (optional)", "Email", "Where are you today?"
+        submit, note = "Send message", "We use your details only to reply to you."
+        lang_value = "English"
+    return f"""<div class="leadform">
+<h2>{html.escape(heading)}</h2>
+<p class="lead" style="margin-bottom:16px">{html.escape(hint)}</p>
+<form action="{FORMSUBMIT_ACTION}" method="POST">
+<input type="hidden" name="_subject" value="New enquiry from the dot. website ({html.escape(subject)})">
+<input type="hidden" name="_template" value="table">
+<input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="page" value="{html.escape(page_label)}">
+<input type="hidden" name="language" value="{lang_value}">
+<input class="lf-hp" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+<div class="lf-row">
+<div class="lf-field"><label for="lf-name-{html.escape(page_label)}">{html.escape(l_name)}</label>
+<input id="lf-name-{html.escape(page_label)}" name="name" type="text" autocomplete="name" required></div>
+<div class="lf-field"><label for="lf-company-{html.escape(page_label)}">{html.escape(l_company)}</label>
+<input id="lf-company-{html.escape(page_label)}" name="company" type="text" autocomplete="organization"></div>
+</div>
+<div class="lf-row">
+<div class="lf-field"><label for="lf-email-{html.escape(page_label)}">{html.escape(l_email)}</label>
+<input id="lf-email-{html.escape(page_label)}" name="email" type="email" dir="ltr" autocomplete="email" required></div>
+</div>
+<div class="lf-row">
+<div class="lf-field"><label for="lf-msg-{html.escape(page_label)}">{html.escape(l_msg)}</label>
+<textarea id="lf-msg-{html.escape(page_label)}" name="message" required></textarea></div>
+</div>
+<button class="lf-submit" type="submit">{html.escape(submit)}</button>
+<p class="lf-note">{html.escape(note)}</p>
+</form>
+</div>"""
 
 def foot_links_for(lang, current_path):
     """Cross-links to the other pages, in the same language where a
@@ -540,6 +602,7 @@ def build_contact_page(lang):
     parts.append(f'<h3>{html.escape(faq_q)}</h3>')
     parts.append(f'<p>{html.escape(faq_a)}</p>')
     body = "\n".join(parts)
+    body += "\n" + lead_form_html(lang, "contact", "dot.")
 
     schema_blocks = [{
         "@context": "https://schema.org", "@type": "ContactPage", "name": title, "description": desc,
@@ -603,6 +666,7 @@ def build():
         path_prefix = "" if lang == "en" else "ar/"
         url = f"{DOMAIN}/{path_prefix}{CASE_STUDY_PATH}/"
         body, schema_items = case_studies_body(cases, lang)
+        body += "\n" + lead_form_html(lang, "tech-studio-results", "dot. tech studio")
         title = ("Client results | dot. tech studio, Saudi Arabia" if lang == "en"
                   else "نتائج العملاء | dot. tech studio، السعودية")
         desc = ("Seventeen real engagements for insurance, payments, healthcare and manufacturing "
@@ -650,6 +714,7 @@ def build():
             body += f"\n<h2>Pricing</h2>\n{faq_html}"
         if slug in ("tech-studio", "tech-profile"):
             body += see_results_link["en"]
+        body += "\n" + lead_form_html("en", slug, b["name"])
         schema_blocks = [{
             "@context": "https://schema.org", "@type": "WebPage", "name": b["title"], "description": b["desc"],
             "url": en_url, "isPartOf": {"@type": "WebSite", "name": "dot.", "url": DOMAIN},
@@ -697,6 +762,7 @@ def build():
             ar_body += f"\n<h2>الأسعار</h2>\n{ar_faq_html}"
         if slug in ("tech-studio", "tech-profile"):
             ar_body += see_results_link["ar"]
+        ar_body += "\n" + lead_form_html("ar", slug, b["name"])
         if ar_desc is None:
             # A short, honestly-derived Arabic meta description: the first real
             # translated lead paragraph, not a fresh composition.

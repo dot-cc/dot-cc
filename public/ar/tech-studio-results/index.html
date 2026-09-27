@@ -50,6 +50,16 @@ li{margin:0 0 8px}
 .cta{display:inline-block;margin:36px 0 8px;padding:14px 26px;background:var(--accent);color:var(--on);text-decoration:none;font-weight:700;border-radius:8px}
 .foot{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);color:var(--mut);font-size:13px}
 .foot a{color:var(--mut)}
+.leadform{margin-top:48px;padding:24px;background:var(--line);border-radius:12px}
+.leadform h2{margin-top:0}
+.lf-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.lf-field{flex:1 1 200px;display:flex;flex-direction:column;gap:4px}
+.lf-field label{font-size:13px;color:var(--mut)}
+.lf-field input,.lf-field select,.lf-field textarea{font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.lf-field textarea{min-height:90px;resize:vertical}
+.lf-hp{position:absolute;left:-9999px}
+.lf-submit{display:inline-block;margin-top:4px;padding:12px 24px;background:var(--accent);color:var(--on);border:0;border-radius:8px;font:inherit;font-weight:700;cursor:pointer}
+.lf-note{margin:10px 0 0;font-size:12px;color:var(--mut)}
 </style>
 </head>
 <body>
@@ -129,6 +139,34 @@ li{margin:0 0 8px}
 <p class="kicker">المدفوعات</p>
 <p>إعداد تصميم البنية التحتية والأمن وتدفق البيانات وحزمة الأدلة لمنصة مدفوعات.</p>
 <p><b>النتيجة:</b> استُخدمت لاجتياز التدقيق التقني للبنك المركزي السعودي والحصول على ترخيص الخدمات المالية والاستثمار.</p>
+<div class="leadform">
+<h2>تواصل معنا</h2>
+<p class="lead" style="margin-bottom:16px">تستغرق دقيقة تقريباً.</p>
+<form action="https://formsubmit.co/info@dot-cs.com" method="POST">
+<input type="hidden" name="_subject" value="New enquiry from the dot. website (dot. tech studio)">
+<input type="hidden" name="_template" value="table">
+<input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="page" value="tech-studio-results">
+<input type="hidden" name="language" value="Arabic">
+<input class="lf-hp" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+<div class="lf-row">
+<div class="lf-field"><label for="lf-name-tech-studio-results">الاسم</label>
+<input id="lf-name-tech-studio-results" name="name" type="text" autocomplete="name" required></div>
+<div class="lf-field"><label for="lf-company-tech-studio-results">الشركة (اختياري)</label>
+<input id="lf-company-tech-studio-results" name="company" type="text" autocomplete="organization"></div>
+</div>
+<div class="lf-row">
+<div class="lf-field"><label for="lf-email-tech-studio-results">البريد الإلكتروني</label>
+<input id="lf-email-tech-studio-results" name="email" type="email" dir="ltr" autocomplete="email" required></div>
+</div>
+<div class="lf-row">
+<div class="lf-field"><label for="lf-msg-tech-studio-results">أين تقف اليوم؟</label>
+<textarea id="lf-msg-tech-studio-results" name="message" required></textarea></div>
+</div>
+<button class="lf-submit" type="submit">أرسل الرسالة</button>
+<p class="lf-note">نستخدم بياناتك للرد عليك فقط.</p>
+</form>
+</div>
 <a class="cta" href="https://www.dot-cc.com/#tech-studio">افتح الموقع التفاعلي الكامل &larr;</a>
 </main>
 <div class="foot">
