@@ -1,14 +1,14 @@
 # dot.
 
-> dot. is a Riyadh-based group of three businesses that work together: a creative studio, a tech studio, and a creative consultancy that combines both. It serves companies in Saudi Arabia.
+> dot. is a Riyadh-based group of three businesses that work together: a creative studio, a tech studio, and a creative consultancy that combines both. It serves companies in Saudi Arabia. Most pages are available in English and Arabic.
 
 ## Businesses
 
-- [dot. creative studio](https://www.dot-cc.com/creative-studio/): brand strategy, identity, and advertising campaigns.
-- [dot. tech studio](https://www.dot-cc.com/tech-studio/): AI and automation, business systems, data, and rescuing stalled technology projects, for regulated industries such as insurance and payments in Saudi Arabia.
-- [dot. tech studio — company profile](https://www.dot-cc.com/tech-studio-profile/): the full company profile for dot. tech studio.
-- [dot. tech studio — client results](https://www.dot-cc.com/tech-studio-results/): seventeen real, anonymised engagements with the measured before/after numbers.
-- [dot. creative consultancy](https://www.dot-cc.com/creative-consultancy/): a business consultancy with creative solutions — finds what is holding a company back, fixes it, and builds the story to tell about it.
+- [dot. creative studio](https://www.dot-cc.com/creative-studio/): brand strategy, identity, and advertising campaigns. (English only.)
+- [dot. tech studio](https://www.dot-cc.com/tech-studio/) / [Arabic](https://www.dot-cc.com/ar/tech-studio/): AI and automation, business systems, data, and rescuing stalled technology projects, for regulated industries such as insurance and payments in Saudi Arabia.
+- [dot. tech studio — company profile](https://www.dot-cc.com/tech-studio-profile/) / [Arabic](https://www.dot-cc.com/ar/tech-studio-profile/): the full company profile for dot. tech studio.
+- [dot. tech studio — client results](https://www.dot-cc.com/tech-studio-results/) / [Arabic](https://www.dot-cc.com/ar/tech-studio-results/): seventeen real, anonymised engagements with the measured before/after numbers.
+- [dot. creative consultancy](https://www.dot-cc.com/creative-consultancy/) / [Arabic](https://www.dot-cc.com/ar/creative-consultancy/): a business consultancy with creative solutions — finds what is holding a company back, fixes it, and builds the story to tell about it.
 
 ## Pricing
 
