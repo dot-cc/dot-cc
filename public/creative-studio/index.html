@@ -176,7 +176,7 @@ li{margin:0 0 8px}
 <div class="leadform">
 <h2>Start a conversation</h2>
 <p class="lead" style="margin-bottom:16px">It takes about a minute.</p>
-<form action="https://formsubmit.co/info@dot-cs.com" method="POST">
+<form id="lf-form-creative-studio" action="https://formsubmit.co/info@dot-cs.com" method="POST">
 <input type="hidden" name="_subject" value="New enquiry from the dot. website (dot. creative studio)">
 <input type="hidden" name="_template" value="table">
 <input type="hidden" name="_captcha" value="false">
@@ -200,6 +200,15 @@ li{margin:0 0 8px}
 <button class="lf-submit" type="submit">Send message</button>
 <p class="lf-note">We use your details only to reply to you.</p>
 </form>
+<script>(function(){
+  var f = document.getElementById("lf-form-creative-studio");
+  if (!f) return;
+  f.addEventListener("submit", function(){
+    if (typeof gtag === "function") {
+      gtag("event", "generate_lead", {lead_source: "creative-studio", transport_type: "beacon"});
+    }
+  });
+})();</script>
 </div>
 <a class="cta" href="https://www.dot-cc.com/#creative-studio">Open the full interactive site &rarr;</a>
 </main>

@@ -152,7 +152,7 @@ li{margin:0 0 8px}
 <div class="leadform">
 <h2>تواصل معنا</h2>
 <p class="lead" style="margin-bottom:16px">تستغرق دقيقة تقريباً.</p>
-<form action="https://formsubmit.co/info@dot-cs.com" method="POST">
+<form id="lf-form-tech-profile" action="https://formsubmit.co/info@dot-cs.com" method="POST">
 <input type="hidden" name="_subject" value="New enquiry from the dot. website (dot. tech studio)">
 <input type="hidden" name="_template" value="table">
 <input type="hidden" name="_captcha" value="false">
@@ -176,6 +176,15 @@ li{margin:0 0 8px}
 <button class="lf-submit" type="submit">أرسل الرسالة</button>
 <p class="lf-note">نستخدم بياناتك للرد عليك فقط.</p>
 </form>
+<script>(function(){
+  var f = document.getElementById("lf-form-tech-profile");
+  if (!f) return;
+  f.addEventListener("submit", function(){
+    if (typeof gtag === "function") {
+      gtag("event", "generate_lead", {lead_source: "tech-profile", transport_type: "beacon"});
+    }
+  });
+})();</script>
 </div>
 <a class="cta" href="https://www.dot-cc.com/#tech-profile">افتح الموقع التفاعلي الكامل &larr;</a>
 </main>

@@ -419,10 +419,11 @@ def lead_form_html(lang, page_label, subject):
         l_name, l_company, l_email, l_msg = "Your name", "Company (optional)", "Email", "Where are you today?"
         submit, note = "Send message", "We use your details only to reply to you."
         lang_value = "English"
+    form_id = f"lf-form-{page_label}"
     return f"""<div class="leadform">
 <h2>{html.escape(heading)}</h2>
 <p class="lead" style="margin-bottom:16px">{html.escape(hint)}</p>
-<form action="{FORMSUBMIT_ACTION}" method="POST">
+<form id="{form_id}" action="{FORMSUBMIT_ACTION}" method="POST">
 <input type="hidden" name="_subject" value="New enquiry from the dot. website ({html.escape(subject)})">
 <input type="hidden" name="_template" value="table">
 <input type="hidden" name="_captcha" value="false">
@@ -446,6 +447,15 @@ def lead_form_html(lang, page_label, subject):
 <button class="lf-submit" type="submit">{html.escape(submit)}</button>
 <p class="lf-note">{html.escape(note)}</p>
 </form>
+<script>(function(){{
+  var f = document.getElementById("{form_id}");
+  if (!f) return;
+  f.addEventListener("submit", function(){{
+    if (typeof gtag === "function") {{
+      gtag("event", "generate_lead", {{lead_source: "{page_label}", transport_type: "beacon"}});
+    }}
+  }});
+}})();</script>
 </div>"""
 
 def foot_links_for(lang, current_path):
