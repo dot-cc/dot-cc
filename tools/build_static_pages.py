@@ -215,6 +215,14 @@ PAGE_TMPL = """<!doctype html>
 <link rel="canonical" href="{url}">
 <meta name="robots" content="index, follow">
 {hreflang}
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5KTNW8VJXT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){{dataLayer.push(arguments);}}
+  gtag('js', new Date());
+  gtag('config', 'G-5KTNW8VJXT');
+</script>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="dot.">
 <meta property="og:title" content="{title}">
