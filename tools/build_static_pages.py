@@ -139,6 +139,7 @@ nav.crumbs{{font-size:13px;color:var(--mut)}}
 nav.crumbs a{{color:var(--mut)}}
 h1{{font-size:clamp(28px,5vw,42px);line-height:1.1;margin:0 0 10px}}
 .lead{{font-size:19px;color:var(--mut);margin:0 0 28px}}
+.kicker{{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin:-4px 0 8px}}
 h2{{font-size:22px;margin:40px 0 10px}}
 h3{{font-size:17px;margin:20px 0 6px}}
 p{{margin:0 0 14px}}
@@ -169,9 +170,75 @@ li{{margin:0 0 8px}}
 </html>
 """
 
+def extract_balanced_array(h, key):
+    """Pull out the JSON array value for a top-level `"key": [...]` in a
+    larger JS/JSON blob, by counting brackets rather than assuming a
+    particular neighbour key follows it."""
+    k = h.index(f'"{key}":')
+    start = h.index("[", k)
+    depth = 0
+    for idx in range(start, len(h)):
+        if h[idx] == "[":
+            depth += 1
+        elif h[idx] == "]":
+            depth -= 1
+            if depth == 0:
+                return json.loads(h[start:idx + 1])
+    raise ValueError(f"unbalanced array for {key}")
+
+CASE_STUDY_TITLE = "Client results | dot. tech studio, Saudi Arabia"
+CASE_STUDY_DESC = ("Seventeen real engagements for insurance, payments, healthcare and manufacturing "
+                    "companies in Saudi Arabia, anonymised by industry, with the numbers behind each one.")
+CASE_STUDY_PATH = "tech-studio-results"
+
+def build_case_studies_page(sections):
+    cases = extract_balanced_array(sections["tech"], "CASES")
+    url = f"{DOMAIN}/{CASE_STUDY_PATH}/"
+    parts = ["<p class=\"lead\">Seventeen engagements from dot. tech studio's own client work in Saudi Arabia. "
+             "Client names are withheld; the industry, the problem and the measured result are real.</p>"]
+    schema_items = []
+    for i, c in enumerate(cases, 1):
+        name = f"{c['ind']}: {c['t']}"
+        parts.append(f"<h2 id=\"case-{i}\">{html.escape(name)}</h2>")
+        parts.append(f"<p class=\"kicker\">{html.escape(c['ind'])}</p>")
+        parts.append(f"<p>{html.escape(c['body'])}</p>")
+        parts.append(f"<p><b>Result:</b> {html.escape(c['fig'])}</p>")
+        schema_items.append({
+            "@type": "Article",
+            "headline": name,
+            "articleSection": c["ind"],
+            "abstract": c["body"],
+            "about": c["fig"],
+        })
+    body = "\n".join(parts)
+    schema_blocks = [
+        {
+            "@context": "https://schema.org", "@type": "CollectionPage",
+            "name": CASE_STUDY_TITLE, "description": CASE_STUDY_DESC, "url": url,
+            "isPartOf": {"@type": "WebSite", "name": "dot.", "url": DOMAIN},
+            "about": {"@type": "Organization", "name": "dot. tech studio"},
+            "hasPart": schema_items,
+        },
+    ]
+    schema = "\n".join(
+        f'<script type="application/ld+json">{json.dumps(sb, ensure_ascii=False)}</script>' for sb in schema_blocks
+    )
+    page = PAGE_TMPL.format(
+        title=html.escape(CASE_STUDY_TITLE), desc=html.escape(CASE_STUDY_DESC),
+        url=url, domain=DOMAIN, color="#00F4C9", on="#121D21",
+        name="dot. tech studio", h1="Client results, by the numbers", body=body,
+        hash="tech-studio", schema=schema,
+    )
+    outdir = os.path.join(ROOT, "public", CASE_STUDY_PATH)
+    os.makedirs(outdir, exist_ok=True)
+    open(os.path.join(outdir, "index.html"), "w", encoding="utf-8").write(page)
+    print(f"wrote public/{CASE_STUDY_PATH}/index.html ({len(page)} bytes, {len(cases)} cases)")
+    return url
+
 def build():
     sections = load_sections()
     urls = []
+    urls.append((build_case_studies_page(sections), 0))
     for slug, b in BRANDS.items():
         html_src = clean(sections[b["key"]])
         items = extract(html_src)
@@ -184,6 +251,8 @@ def build():
         )
         if faq_html:
             body += f"\n<h2>Pricing</h2>\n{faq_html}"
+        if slug in ("tech-studio", "tech-profile"):
+            body += (f'\n<p><a href="{DOMAIN}/{CASE_STUDY_PATH}/">See all 17 client results, by the numbers &rarr;</a></p>')
         schema_blocks = [{
             "@context": "https://schema.org",
             "@type": "WebPage",
@@ -249,6 +318,7 @@ Sitemap: {DOMAIN}/sitemap.xml
 - [dot. creative studio]({DOMAIN}/creative-studio/): brand strategy, identity, and advertising campaigns.
 - [dot. tech studio]({DOMAIN}/tech-studio/): AI and automation, business systems, data, and rescuing stalled technology projects, for regulated industries such as insurance and payments in Saudi Arabia.
 - [dot. tech studio — company profile]({DOMAIN}/tech-studio-profile/): the full company profile for dot. tech studio.
+- [dot. tech studio — client results]({DOMAIN}/tech-studio-results/): seventeen real, anonymised engagements with the measured before/after numbers.
 - [dot. creative consultancy]({DOMAIN}/creative-consultancy/): a business consultancy with creative solutions — finds what is holding a company back, fixes it, and builds the story to tell about it.
 
 ## Pricing
