@@ -14,8 +14,12 @@ verified before writing this script — not assumed):
     the bilingual "client results" case list.
   - creative-consultancy: English and Arabic text sit side by side as sibling
     <span class="en"> / <span class="ar" lang="ar"> elements in the same markup.
-  - creative-studio: English only. The real site has no Arabic version of
-    this brand's content, so no Arabic page is invented for it here.
+  - creative-studio: the live interactive site is English only — it has no
+    bilingual markup to extract. Its Arabic static page (below) is instead a
+    curated, hand-translated mirror of the same real English content pulled
+    from the source (CREATIVE_STUDIO_AR), following the same precedent as
+    build_ar_home_page: composed by hand because the source has nothing to
+    extract, not invented content.
 
 Run from the repo root:  python3 tools/build_static_pages.py
 """
@@ -29,7 +33,7 @@ BRANDS = {
     "creative-studio": dict(key="studio", path="creative-studio", color="#FF0000", on="#FFFFFF",
         title="dot. creative studio | brand identity & campaigns, Riyadh",
         desc="dot. creative studio builds brand strategy, identity and campaigns for companies in Saudi Arabia that are done playing it safe.",
-        name="dot. creative studio", i18n=None),
+        name="dot. creative studio", i18n="manual"),
     "tech-studio": dict(key="tech", path="tech-studio", color="#00F4C9", on="#121D21",
         title="dot. tech studio | AI, business systems & data, Saudi Arabia",
         desc="dot. tech studio puts AI to work, builds business systems, moves and fixes data, and rescues stalled tech projects for companies in Saudi Arabia.",
@@ -56,6 +60,89 @@ MANUAL_FAQS = {slug: [(PRICING_Q.format(name=b["name"]), PRICING_A)] for slug, b
 PRICING_Q_AR = "كم تبلغ تكلفة العمل مع {name}؟"
 PRICING_A_AR = "تبدأ المشاريع من 3,750 ريال سعودي شهريًا. يُحدَّد النطاق والسعر الدقيقان بعد محادثة أولى حول ما تحتاجه."
 MANUAL_FAQS_AR = {slug: [(PRICING_Q_AR.format(name=b["name"]), PRICING_A_AR)] for slug, b in BRANDS.items()}
+
+# ---------------------------------------------------------------------------
+# creative-studio has no bilingual markup in the source to extract (see the
+# module docstring). Its Arabic page is a curated, hand-translated mirror of
+# the real English content above, in the same document order, following the
+# same "composed by hand, not extracted" precedent as build_ar_home_page and
+# MANUAL_FAQS_AR. Case/project names (Omnisphere, Al Saif Brands, etc.) are
+# proper nouns and are kept in Latin script, matching how "dot." itself and
+# other brand names stay Latin inside Arabic copy elsewhere on the site.
+# ---------------------------------------------------------------------------
+CREATIVE_STUDIO_AR_TITLE = "dot. creative studio | هوية العلامة التجارية والحملات، الرياض"
+CREATIVE_STUDIO_AR_DESC = ("استوديو dot. الإبداعي يبني استراتيجية العلامة التجارية وهويتها وحملاتها "
+                            "لشركات في السعودية سئمت من اللعب بأمان.")
+
+_CS_CASES_AR = [
+    ("Omnisphere", "تمت تسميتها وبناؤها من الصفر. نظام علامة تجارية واحد يهتدي بنجمة، يجمع ثلاثة أعمال: الإنتاج، والمقاولات، والاستشارات."),
+    ("Al Saif Brands", "عائلة واحدة، وثلاثة خطوط: الفخامة، والبيع النقدي بالجملة (Cash & Carry)، وقطاع الضيافة HORECA (الفنادق والمطاعم والمقاهي). هوية، ووسائل تواصل اجتماعي، وأجنحة معارض."),
+    ("Al Dahayan", "إعادة تسمية للعلامة، وأجنحة معارض، وحملات بحجم يليق بإحدى أبرز مصانع تكسية الألمنيوم في السعودية."),
+    ("Fakhda & Bas", "إعادة علامة تجارية كاملة لمطبخ سحابي سعودي متخصص في توصيل اللحوم الفاخرة. حيث يلتقي التراث الطهي بسرعة التوصيل، عبر التغليف ووسائل التواصل الاجتماعي."),
+    ("Awan", "هوية لشركة سلاسل إمداد تُحوّل الشحن والتخزين إلى لغة علامة تجارية تتحدث عن الحركة والموثوقية."),
+    ("Silver in Sky", "هوية سماوية لأدوات الضيافة الفضية الفاخرة، إضافة إلى قطع فضية صممناها ونُفّذت بالفعل وباتت على موائد المطاعم الراقية."),
+    ("Monarque", "تمت تسميتها وبناؤها منذ أول رسم تخطيطي: علامة تجارية لتوريد مستلزمات الفنادق والمطاعم تحمل الهيبة التي يعد بها اسمها."),
+    ("Ishraqat Festival", "هوية أكبر مهرجان فني وثقافي تشهده سوريا في الذاكرة الحديثة، أُقيم على مسرح دار الأوبرا بدمشق. وقد كُرِّم هذا العمل على ذات المسرح."),
+    ("is it", "هوية لشركة متخصصة في الذكاء الاصطناعي (AI) والحلول التقنية، تُحوّل سؤالًا بسيطًا إلى تصريح."),
+    ("Najd", "علامة تجارية لمصنّع فواصل الألمنيوم، متجذرة في التراث النجدي ومبنية على القوة والدقة، من الشعار إلى وسائل التواصل الاجتماعي."),
+    ("Moments", "شعار، ودليل هوية، ووسائل تواصل اجتماعي لعلامة تنظيم فعاليات من pausa، تركّز على احتفالات الأطفال واللحظات الجديرة بالحفظ."),
+    ("Syrian Airlines", "ناقل وطني أُعيد بناؤه من الصفر: شعار جديد، ونظام هوية متكامل، وأزياء موحّدة، وكل نقطة تماس بينهما."),
+    ("Path@", "اسم وهوية لمبادرة تابعة لهيئة الترفيه العامة تربط المواهب الشابة بالمحترفين في مجالاتهم."),
+    ("Allurium", "تمت تسميتها وبناؤها من الصفر لمصنّع فواصل ألمنيوم فاخرة: أنيقة، وقوية، ومهندسة لتبدو كذلك."),
+]
+
+def _cs_case_items_ar():
+    items = []
+    for name, desc in _CS_CASES_AR:
+        items.append(("h3", name))
+        items.append(("p", desc))
+    return items
+
+def creative_studio_ar_items():
+    items = [
+        ("p", "dot. creative studio، الرياض"),
+        ("h1", "هوية العلامة التجارية والحملات التي تُنهي كل قاعدة بنقطة"),
+        ("p", "نبني علامات تجارية لأصحاب الأعمال الذين سئموا اللعب بأمان. استراتيجية، وهوية، وحملات لا يمكنك تجاوزها بتمرير الشاشة."),
+        ("p", "نحن استوديو للهوية التجارية والحملات الإبداعية مقرّه الرياض، المملكة العربية السعودية — استراتيجية، وتسمية، وهوية بصرية، وإعلان لشركات تريد أن تُذكر، لا أن تُرى فقط."),
+        ("p", "استمر بالتمرير. نتحداك."),
+        ("p", "أصبح التسويق مهذبًا. متوقعًا. آمنًا. وتلك هي الجريمة الحقيقية. لذا نكسر الطريقة المعتادة في العمل، علامة تجارية جريئة واحدة في كل مرة."),
+        ("h2", "الأشياء الكبيرة تبدأ صغيرة"),
+        ("p", "شعارنا يبدو كنقطة بسيطة. لا تدع ذلك يخدعك. كل علامة تجارية في هذه الملفات بدأت كفكرة صغيرة، ثم أصبح من المستحيل تجاهلها."),
+        ("h2", "ملفات الأعمال"),
+        ("p", "عشرون علامة تجارية توقفت عن اللعب بأمان. اضغط على أي ملف لرؤية العمل، ثم افتح الدراسة الكاملة على Behance."),
+    ]
+    items += _cs_case_items_ar()
+    items += [
+        ("h3", "المزيد على Behance"),
+        ("p", "كنا سنعرض عليك كل أعمالنا هنا، لكن هذه الصفحة لا تدعم التمرير اللانهائي (بعد)."),
+        ("h2", "الترسانة"),
+        ("p", "ثلاث طرق للوصول إلى الناس. معظم العلامات التجارية تحتاج الثلاث تعمل معًا كواحدة."),
+        ("p", "الوصول الجماهيري. العمل الذي تراه مدينة بأكملها."),
+        ("p", "ظهر في: ملصقات شوارع مهرجان إشراقات، وشاشات مطارات الخطوط السورية."),
+        ("li", "حملات إعلانات خارجية ولوحات طرق"),
+        ("li", "المطبوعات والصحافة"),
+        ("li", "شراء الوسائل الإعلامية والإعلانات المدفوعة"),
+        ("li", "إنتاج الفيديو والموشن جرافيك"),
+        ("p", "مباشر وملموس. العمل الذي يلمسه الناس ويزورونه ويشاركونه."),
+        ("p", "ظهر في: أجنحة معارض الدهيان والسيف، وفعاليات Moments."),
+        ("li", "أجنحة المعارض والفعاليات التنشيطية"),
+        ("li", "الفعاليات والتجارب الحية"),
+        ("li", "التسويق عبر المؤثرين"),
+        ("li", "إدارة وسائل التواصل الاجتماعي"),
+        ("li", "المنتجات الترويجية ومواد العلامة التجارية"),
+        ("p", "كل شيء مترابط. فكرة واحدة تُحمل عبر كل قناة."),
+        ("p", "ظهر في: Omnisphere، ونجد، والخطوط السورية، وPath@."),
+        ("li", "استراتيجية العلامة التجارية وتموضعها"),
+        ("li", "الهوية البصرية وإعادة العلامة التجارية"),
+        ("li", "دليل الهوية وصوت العلامة التجارية"),
+        ("li", "استراتيجية المحتوى وكتابة النصوص الإعلانية"),
+        ("li", "تحسين محركات البحث (SEO) والمواقع الإلكترونية"),
+        ("li", "الإخراج الإبداعي"),
+        ("h2", "سلّم نفسك"),
+        ("p", "هل لديك علامة تجارية تلعب بأمان زائد؟ أخبرنا عنها. كل رسالة تصل مباشرة إلى الفريق."),
+    ]
+    items += _cs_case_items_ar()
+    return items
 
 def load_sections():
     s = open(SRC, encoding="utf-8").read()
@@ -306,14 +393,12 @@ def foot_links_for(lang, current_path):
     home = f'{DOMAIN}/' if lang == "en" else f'{DOMAIN}/ar/'
     entries = [
         ("home", "dot. home" if lang == "en" else "الرئيسية", home),
-        ("creative-studio", "creative studio", f"{DOMAIN}/creative-studio/"),  # English only, always
+        ("creative-studio", "creative studio", f"{DOMAIN}/{'ar/' if lang=='ar' else ''}creative-studio/"),
         ("tech-studio", "tech studio", f"{DOMAIN}/{'ar/' if lang=='ar' else ''}tech-studio/"),
         ("tech-studio-profile", "tech studio profile", f"{DOMAIN}/{'ar/' if lang=='ar' else ''}tech-studio-profile/"),
         ("tech-studio-results", "client results", f"{DOMAIN}/{'ar/' if lang=='ar' else ''}tech-studio-results/"),
         ("creative-consultancy", "creative consultancy", f"{DOMAIN}/{'ar/' if lang=='ar' else ''}creative-consultancy/"),
     ]
-    if lang == "ar":
-        entries[1] = ("creative-studio", "creative studio (بالإنجليزية)", f"{DOMAIN}/creative-studio/")
     parts = [f'<a href="{u}">{html.escape(t)}</a>' for _, t, u in entries]
     return " &middot; ".join(parts)
 
@@ -333,10 +418,13 @@ def build_ar_home_page(sections, raw_shell):
     ar_dict_profile = parse_js_object(sections["profile"], "const AR = {")
     cc_ar_items = extract(clean_ar_spans(sections["cc"]))
     cc_lead = next((t for tag, t in cc_ar_items if tag == "p"), None)
+    # (not "first p" like cc_lead below — that would grab the location kicker
+    # line rather than the actual descriptive sentence)
+    cs_lead = "نبني علامات تجارية لأصحاب الأعمال الذين سئموا اللعب بأمان. استراتيجية، وهوية، وحملات لا يمكنك تجاوزها بتمرير الشاشة."
 
     # slug -> (arabic tagline or None, target url)
     entries = [
-        ("creative-studio", None, f"{DOMAIN}/creative-studio/", "creative studio (بالإنجليزية)"),
+        ("creative-studio", cs_lead, f"{DOMAIN}/ar/creative-studio/", "dot. creative studio"),
         ("tech-studio", clean_text(ar_dict_tech.get("hero.lead", "")), f"{DOMAIN}/ar/tech-studio/", "dot. tech studio"),
         ("creative-consultancy", cc_lead, f"{DOMAIN}/ar/creative-consultancy/", "dot. creative consultancy"),
     ]
@@ -355,8 +443,6 @@ def build_ar_home_page(sections, raw_shell):
         parts.append(f'<h2><a href="{url}">{html.escape(label)}</a></h2>')
         if ar_line:
             parts.append(f"<p>{html.escape(ar_line)}</p>")
-        elif slug == "creative-studio":
-            parts.append("<p>لا تتوفر نسخة عربية من هذا الموقع حاليًا.</p>")
     parts.append("<h2>المزيد</h2><ul>")
     for slug, ar_line, url, label in secondary:
         parts.append(f'<li><a href="{url}">{html.escape(label)}</a></li>')
@@ -496,11 +582,18 @@ def build():
             ar_dict = parse_js_object(raw, "const AR = {")
             ar_items = extract_i18n_ar(raw, ar_dict)
             ar_title = ar_dict.get("__title", b["title"])
+            ar_desc = None
+        elif b["i18n"] == "manual":
+            ar_dict = None
+            ar_items = creative_studio_ar_items()
+            ar_title = CREATIVE_STUDIO_AR_TITLE
+            ar_desc = CREATIVE_STUDIO_AR_DESC
         else:  # "spans"
             ar_dict = None
             ar_items = extract(clean_ar_spans(raw))
             ar_title_match = re.search(r"\|\s*([^<]+)$", b["title"])
             ar_title = f'{ar_title_match.group(1).strip()} | {b["name"]}' if ar_title_match else b["title"]
+            ar_desc = None
         ar_h1 = next((t for tag, t in ar_items if tag == "h1"), b["name"])
         ar_body = to_semantic_html(ar_items)
         ar_faqs = faq_pairs(ar_items) + MANUAL_FAQS_AR.get(slug, [])
@@ -509,10 +602,11 @@ def build():
             ar_body += f"\n<h2>الأسعار</h2>\n{ar_faq_html}"
         if slug in ("tech-studio", "tech-profile"):
             ar_body += see_results_link["ar"]
-        # A short, honestly-derived Arabic meta description: the first real
-        # translated lead paragraph, not a fresh composition.
-        ar_lead = next((t for tag, t in ar_items if tag in ("h1", "p")), ar_h1)
-        ar_desc = (ar_lead[:157] + "…") if len(ar_lead) > 158 else ar_lead
+        if ar_desc is None:
+            # A short, honestly-derived Arabic meta description: the first real
+            # translated lead paragraph, not a fresh composition.
+            ar_lead = next((t for tag, t in ar_items if tag in ("h1", "p")), ar_h1)
+            ar_desc = (ar_lead[:157] + "…") if len(ar_lead) > 158 else ar_lead
         ar_schema_blocks = [{
             "@context": "https://schema.org", "@type": "WebPage", "name": ar_title, "description": ar_desc,
             "url": ar_url, "isPartOf": {"@type": "WebSite", "name": "dot.", "url": DOMAIN},
@@ -557,7 +651,7 @@ def build():
 ## Businesses
 
 - Arabic entry point: [{DOMAIN}/ar/]({DOMAIN}/ar/)
-- [dot. creative studio]({DOMAIN}/creative-studio/): brand strategy, identity, and advertising campaigns. (English only.)
+- [dot. creative studio]({DOMAIN}/creative-studio/) / [Arabic]({DOMAIN}/ar/creative-studio/): brand strategy, identity, and advertising campaigns.
 - [dot. tech studio]({DOMAIN}/tech-studio/) / [Arabic]({DOMAIN}/ar/tech-studio/): AI and automation, business systems, data, and rescuing stalled technology projects, for regulated industries such as insurance and payments in Saudi Arabia.
 - [dot. tech studio — company profile]({DOMAIN}/tech-studio-profile/) / [Arabic]({DOMAIN}/ar/tech-studio-profile/): the full company profile for dot. tech studio.
 - [dot. tech studio — client results]({DOMAIN}/tech-studio-results/) / [Arabic]({DOMAIN}/ar/tech-studio-results/): seventeen real, anonymised engagements with the measured before/after numbers.
