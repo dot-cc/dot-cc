@@ -398,6 +398,7 @@ def foot_links_for(lang, current_path):
         ("tech-studio-profile", "tech studio profile", f"{DOMAIN}/{'ar/' if lang=='ar' else ''}tech-studio-profile/"),
         ("tech-studio-results", "client results", f"{DOMAIN}/{'ar/' if lang=='ar' else ''}tech-studio-results/"),
         ("creative-consultancy", "creative consultancy", f"{DOMAIN}/{'ar/' if lang=='ar' else ''}creative-consultancy/"),
+        ("contact", "contact" if lang == "en" else "تواصل معنا", f"{DOMAIN}/{'ar/' if lang=='ar' else ''}contact/"),
     ]
     parts = [f'<a href="{u}">{html.escape(t)}</a>' for _, t, u in entries]
     return " &middot; ".join(parts)
@@ -472,11 +473,105 @@ def build_ar_home_page(sections, raw_shell):
     print(f"wrote public/ar/index.html ({len(page)} bytes)")
     return f"{DOMAIN}/ar/"
 
+def build_contact_page(lang):
+    """A dedicated contact page — needed as its own real, distinct landing
+    page (rather than reusing another brand's page or an in-page anchor),
+    e.g. for ad sitelinks that should each point somewhere purposeful. Every
+    fact here (email, location, the three studios' own descriptions, the
+    price) is real and already published elsewhere on the site; this page
+    only arranges them, following the same "composed by hand, not extracted"
+    precedent as build_ar_home_page."""
+    path_prefix = "" if lang == "en" else "ar/"
+    url = f"{DOMAIN}/{path_prefix}contact/"
+    home_url = f"{DOMAIN}/" if lang == "en" else f"{DOMAIN}/ar/"
+    en_url, ar_url = f"{DOMAIN}/contact/", f"{DOMAIN}/ar/contact/"
+
+    if lang == "en":
+        title = "Contact dot. | Riyadh, Saudi Arabia"
+        desc = ("Get in touch with dot. — creative studio, tech studio and creative consultancy "
+                "in Riyadh, Saudi Arabia. Engagements start at 3,750 SAR per month.")
+        h1 = "Tell us where you are today."
+        intro = ("Behind every noise, there is a rhythm. We help you find it. Tell us where you "
+                  "are today, and we will come back to you with a time for a first conversation.")
+        studios_heading = "Three studios, one team"
+        studios = [
+            ("dot. creative studio", BRANDS["creative-studio"]["desc"], f"{DOMAIN}/creative-studio/"),
+            ("dot. tech studio", BRANDS["tech-studio"]["desc"], f"{DOMAIN}/tech-studio/"),
+            ("dot. creative consultancy", BRANDS["creative-consultancy"]["desc"], f"{DOMAIN}/creative-consultancy/"),
+        ]
+        get_in_touch = "Get in touch"
+        email_label, loc_label = "Email", "Location"
+        pricing_h2 = "Pricing"
+        faq_q = "How much does it cost to work with dot.?"
+        faq_a = PRICING_A
+        cta = "Open the full interactive site &rarr;"
+    else:
+        title = "تواصل مع dot. | الرياض، المملكة العربية السعودية"
+        desc = ("تواصل مع dot. — الاستوديو الإبداعي، والاستوديو التقني، والاستشارات الإبداعية في "
+                "الرياض، المملكة العربية السعودية. تبدأ المشاريع من 3,750 ريال سعودي شهريًا.")
+        h1 = "أخبرنا أين أنتم اليوم."
+        intro = ("خلف كل ضجيج، هناك إيقاع. نساعدك على إيجاده. أخبرنا أين أنتم اليوم، وسنعود "
+                  "إليكم بموعد لمحادثة أولى.")
+        studios_heading = "ثلاثة استوديوهات، فريق واحد"
+        studios = [
+            ("dot. creative studio", "بناء استراتيجية العلامة التجارية وهويتها وحملاتها لشركات في السعودية سئمت من اللعب بأمان.", f"{DOMAIN}/creative-studio/"),
+            ("dot. tech studio", "يوظّف dot. tech studio الذكاء الاصطناعي في العمل، ويبني أنظمة الأعمال، وينقل البيانات ويصلحها، وينقذ المشاريع المتعثرة، للشركات في المملكة العربية السعودية.", f"{DOMAIN}/ar/tech-studio/"),
+            ("dot. creative consultancy", "dot. استشارات أعمال بحلول إبداعية. نكتشف ما يعيق الشركة، ونُصلحه بالترتيب الصحيح، ثم نمنحها علامة يصدّقها الناس.", f"{DOMAIN}/ar/creative-consultancy/"),
+        ]
+        get_in_touch = "تواصل معنا"
+        email_label, loc_label = "البريد الإلكتروني", "الموقع"
+        pricing_h2 = "الأسعار"
+        faq_q = "كم تبلغ تكلفة العمل مع dot.؟"
+        faq_a = PRICING_A_AR
+        cta = "افتح الموقع التفاعلي الكامل &larr;"
+
+    parts = [
+        f'<p class="lead">{html.escape(intro)}</p>',
+        f'<h2>{html.escape(get_in_touch)}</h2>',
+        f'<p><b>{html.escape(email_label)}:</b> <a href="mailto:info@dot-cs.com">info@dot-cs.com</a></p>',
+        f'<p><b>{html.escape(loc_label)}:</b> Riyadh, Saudi Arabia</p>' if lang == "en"
+            else f'<p><b>{html.escape(loc_label)}:</b> الرياض، المملكة العربية السعودية</p>',
+        f'<h2>{html.escape(studios_heading)}</h2>',
+    ]
+    for name, sdesc, surl in studios:
+        parts.append(f'<h3><a href="{surl}">{html.escape(name)}</a></h3>')
+        parts.append(f'<p>{html.escape(sdesc)}</p>')
+    parts.append(f'<h2>{html.escape(pricing_h2)}</h2>')
+    parts.append(f'<h3>{html.escape(faq_q)}</h3>')
+    parts.append(f'<p>{html.escape(faq_a)}</p>')
+    body = "\n".join(parts)
+
+    schema_blocks = [{
+        "@context": "https://schema.org", "@type": "ContactPage", "name": title, "description": desc,
+        "url": url, "isPartOf": {"@type": "WebSite", "name": "dot.", "url": DOMAIN},
+        "about": {"@type": "Organization", "name": "dot.", "email": "info@dot-cs.com",
+                  "address": {"@type": "PostalAddress", "addressLocality": "Riyadh", "addressCountry": "SA"}},
+        "inLanguage": lang,
+    }, {
+        "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+            {"@type": "Question", "name": faq_q, "acceptedAnswer": {"@type": "Answer", "text": faq_a}}
+        ],
+    }]
+    page = render_page(
+        lang=lang, title=title, desc=desc, url=url, color="#0068FF", on="#FFFFFF",
+        name="dot. contact" if lang == "en" else "dot. — تواصل معنا", h1=h1, body=body, hash_="", schema_blocks=schema_blocks,
+        home_url=home_url, foot_links=foot_links_for(lang, "contact"),
+        en_url=en_url, ar_url=ar_url,
+    )
+    page = page.replace(f'<a class="cta" href="{DOMAIN}/#">{cta}</a>', f'<a class="cta" href="{home_url}">{cta}</a>')
+    outdir = os.path.join(ROOT, "public", path_prefix, "contact")
+    os.makedirs(outdir, exist_ok=True)
+    open(os.path.join(outdir, "index.html"), "w", encoding="utf-8").write(page)
+    print(f"wrote public/{path_prefix}contact/index.html ({len(page)} bytes, {lang})")
+    return url
+
 def build():
     sections = load_sections()
     raw_shell = open(SRC, encoding="utf-8").read()
     en_urls, ar_urls = [], []
     ar_urls.append(build_ar_home_page(sections, raw_shell))
+    en_urls.append(build_contact_page("en"))
+    ar_urls.append(build_contact_page("ar"))
 
     # ---- tech-studio's bilingual client-results data (shared by that page
     #      and by the tech-studio / tech-profile "see all" link) ----
@@ -656,6 +751,7 @@ def build():
 - [dot. tech studio — company profile]({DOMAIN}/tech-studio-profile/) / [Arabic]({DOMAIN}/ar/tech-studio-profile/): the full company profile for dot. tech studio.
 - [dot. tech studio — client results]({DOMAIN}/tech-studio-results/) / [Arabic]({DOMAIN}/ar/tech-studio-results/): seventeen real, anonymised engagements with the measured before/after numbers.
 - [dot. creative consultancy]({DOMAIN}/creative-consultancy/) / [Arabic]({DOMAIN}/ar/creative-consultancy/): a business consultancy with creative solutions — finds what is holding a company back, fixes it, and builds the story to tell about it.
+- [Contact]({DOMAIN}/contact/) / [Arabic]({DOMAIN}/ar/contact/): email, location, and links to all three businesses in one place.
 
 ## Pricing
 
