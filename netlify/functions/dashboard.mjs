@@ -40,7 +40,9 @@ export default async (req) => {
   const range = [7, 30, 90].includes(+url.searchParams.get("days")) ? +url.searchParams.get("days") : 30;
   const days = [...Array(range)].map((_, i) => new Date(Date.now() - i * 864e5).toISOString().slice(0, 10)).reverse();
   const sessions = await loadAll(getStore("sessions"), days);
-  const subs = await loadAll(getStore("submissions"), days);
+  const allSubs = await loadAll(getStore("submissions"), days);
+  const subs = allSubs.filter((s) => !s.test);
+  const testSubs = allSubs.filter((s) => s.test);
 
   const visits = sessions.length;
   const totalMs = sessions.reduce((a, s) => a + Object.values(s.ms).reduce((x, y) => x + y, 0), 0);
@@ -97,6 +99,7 @@ nav a{color:var(--mut);text-decoration:none;padding:6px 12px;border:1px solid va
 <div class="card kpi"><small>Visits</small><b>${visits}</b>${chart(byDay)}</div>
 <div class="card kpi"><small>Form submissions</small><b>${subs.length}</b>${chart(subByDay)}</div>
 <div class="card kpi"><small>Avg time on site</small><b>${visits ? fmt(totalMs / visits) : "-"}</b><span class="foot">${visits ? ((subs.length / visits) * 100).toFixed(1) : 0}% of visits send a form</span></div>
+<div class="card kpi"><small>Test submissions</small><b>${testSubs.length}</b><span class="foot">QA checks, excluded from the count above</span></div>
 </div>
 <div class="grid">
 <div class="card"><h2>Where time is spent: sites</h2>${bars(sites.map(([k, v]) => [NAMES[k], v.ms, `${v.vis} visits, avg ${v.vis ? fmt(v.ms / v.vis) : "-"}`]), fmt)}</div>
