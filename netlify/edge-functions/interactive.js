@@ -19,13 +19,16 @@
 // the interactive site). Add it back once that studio has an Arabic version.
 
 // Crawlers, link-preview fetchers and AI tools, matched by user agent.
-// Keep in-app browsers (LinkedIn, Facebook, Instagram, X) on the people side:
-// only their preview bots are listed, never the app names on their own.
+// Name crawlers exactly (ClaudeBot, not "claude"): browsers such as the Claude
+// app's built-in browser, or in-app browsers of LinkedIn, Facebook, Instagram
+// and X, carry product names in their user agent and must stay on the people
+// side. Only the preview/crawler tokens are listed, never app names alone.
 const BOT = new RegExp([
   "bot\\b", "bot/", "crawl", "spider", "slurp", "preview", "fetcher",
   "googlebot", "googleother", "google-", "-google",
   "bingbot", "msnbot", "adidxbot", "duckduck", "yandex", "baidu", "sogou", "exabot", "petalbot", "applebot",
-  "gptbot", "chatgpt", "oai-searchbot", "openai", "perplexity", "claude", "anthropic", "ccbot", "cohere",
+  "gptbot", "chatgpt-user", "oai-searchbot", "perplexitybot", "perplexity-user",
+  "claudebot", "claude-user", "claude-searchbot", "anthropic-ai", "ccbot", "cohere-ai",
   "bytespider", "amazonbot", "meta-externalagent", "diffbot",
   "facebookexternalhit", "facebot", "linkedinbot", "twitterbot", "slackbot", "slack-imgproxy", "discordbot",
   "telegrambot", "whatsapp", "skypeuripreview", "pinterestbot", "redditbot", "embedly", "iframely", "vkshare",
