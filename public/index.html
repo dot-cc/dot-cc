@@ -2,6 +2,16 @@
 <html lang="en" dir="ltr">
 <head>
 <meta charset="utf-8">
+<script>/* dot-path-route: people who open a text-page address (/tech-studio/, /ar/creative-studio/, /case-studies/...) are served this interactive site there by netlify/edge-functions/interactive.js. Open the matching studio in that page's language, and tidy the address to the usual /#studio form. */
+(function(){
+  var p=location.pathname; if(p==="/"||p==="/index.html")return;
+  var ar=p.indexOf("/ar/")===0, rest=ar?p.slice(3):p;
+  var route={"/tech-studio/":"tech-studio","/tech-studio-results/":"tech-studio","/tech-studio-profile/":"tech-profile","/creative-studio/":"creative-studio","/creative-consultancy/":"creative-consultancy"}[rest];
+  if(!route&&rest.indexOf("/case-studies/")===0)route="tech-studio";
+  try{localStorage.setItem("dot-lang",ar?"ar":"en");localStorage.setItem("dotLang",ar?"ar":"en")}catch(e){}
+  try{history.replaceState(null,"","/"+location.search+(route?"#"+route:""))}catch(e){}
+})();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>dot. | creative studio, tech studio and creative consultancy</title>
 <meta name="description" content="dot. in Riyadh: a creative studio for brands, a tech studio for AI and business systems, and a creative consultancy that fixes the business and tells its story.">

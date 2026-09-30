@@ -225,7 +225,7 @@ li{margin:0 0 8px}
   try{ host=new URL(document.referrer).hostname; }catch(e){}
   var fromAI=/(^|\.)(chatgpt\.com|chat\.openai\.com|perplexity\.ai|claude\.ai|gemini\.google\.com|copilot\.microsoft\.com|you\.com|poe\.com)$/i.test(host)
     || /[?&]utm_source=(chatgpt\.com|perplexity|copilot|gemini|claude)/i.test(q);
-  if(fromAI && !/[?&]text=1(&|$)/.test(q)){ setLang(); location.replace(btn.href); }
+  if(fromAI && btn.getAttribute("data-auto")!=="0" && !/[?&]text=1(&|$)/.test(q)){ setLang(); location.replace(btn.href); }
 })();</script>
 <!-- handoff-script:end -->
 </body>

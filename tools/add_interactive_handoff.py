@@ -56,7 +56,7 @@ SCRIPT = """<!-- handoff-script:start -->
   try{ host=new URL(document.referrer).hostname; }catch(e){}
   var fromAI=/(^|\\.)(chatgpt\\.com|chat\\.openai\\.com|perplexity\\.ai|claude\\.ai|gemini\\.google\\.com|copilot\\.microsoft\\.com|you\\.com|poe\\.com)$/i.test(host)
     || /[?&]utm_source=(chatgpt\\.com|perplexity|copilot|gemini|claude)/i.test(q);
-  if(fromAI && !/[?&]text=1(&|$)/.test(q)){ setLang(); location.replace(btn.href); }
+  if(fromAI && btn.getAttribute("data-auto")!=="0" && !/[?&]text=1(&|$)/.test(q)){ setLang(); location.replace(btn.href); }
 })();</script>
 <!-- handoff-script:end -->
 """
@@ -87,8 +87,11 @@ def patch(path):
     h = re.sub(r"<!-- handoff-script:start -->.*?<!-- handoff-script:end -->\n?", "", h, flags=re.S)
     target = f"{DOMAIN}/#{route}" if route else f"{DOMAIN}/"
     note, label = TEXT[lang]
+    # The interactive creative studio is English-only: keep Arabic readers on the
+    # Arabic text (no automatic hand-off), but still offer the button.
+    auto = "" if not (lang == "ar" and route == "creative-studio") else ' data-auto="0"'
     banner = (f'<aside class="handoff"><span>{note}</span>'
-              f'<a id="handoff-btn" data-lang="{lang}" href="{target}">{label}</a></aside>\n')
+              f'<a id="handoff-btn" data-lang="{lang}"{auto} href="{target}">{label}</a></aside>\n')
     if "</style>" not in h or "</header>" not in h or "</body>" not in h:
         return False
     h = h.replace("</style>", CSS + "</style>", 1)
