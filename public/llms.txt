@@ -12,6 +12,28 @@
 - [dot. creative consultancy](https://www.dot-cc.com/creative-consultancy/) / [Arabic](https://www.dot-cc.com/ar/creative-consultancy/): a business consultancy with creative solutions — finds what is holding a company back, fixes it, and builds the story to tell about it.
 - [Contact](https://www.dot-cc.com/contact/) / [Arabic](https://www.dot-cc.com/ar/contact/): email, location, and links to all three businesses in one place.
 
+## Client work, one question per page
+
+Each page answers one question with the measured result from a real dot. tech studio engagement (client names withheld). Arabic versions are under /ar/case-studies/.
+
+- [Can three separate insurance databases be merged into one when the vendor says it is impossible?](https://www.dot-cc.com/case-studies/merge-three-insurance-databases/)
+- [How can ten years of insurance claims be uploaded to the regulator in one weekend?](https://www.dot-cc.com/case-studies/ten-years-of-claims-in-a-weekend/)
+- [How do you fix a faulty integration between an insurance core system and Oracle E-Business Suite?](https://www.dot-cc.com/case-studies/fix-insurance-oracle-integration/)
+- [How can a 300 million SAR mismatch between invoices and receipts be reconciled in seconds?](https://www.dot-cc.com/case-studies/reconcile-300-million-sar/)
+- [Can a failing Hyperion budgeting go-live be rescued without an integration licence?](https://www.dot-cc.com/case-studies/rescue-failing-budgeting-go-live/)
+- [What if a vendor cannot deliver enterprise integrations that were given three to six months?](https://www.dot-cc.com/case-studies/vendor-cannot-deliver-integrations/)
+- [How do you migrate a legacy insurance system when the vendor will not give access?](https://www.dot-cc.com/case-studies/migrate-legacy-insurance-system/)
+- [How do you automate motor claims with Najm and Yaqeen integrations?](https://www.dot-cc.com/case-studies/automate-motor-claims/)
+- [Why are mass policy uploads slow, and how do you speed them up?](https://www.dot-cc.com/case-studies/speed-up-mass-policy-uploads/)
+- [Can a self-service claim status phone line reduce call-centre load?](https://www.dot-cc.com/case-studies/claim-status-phone-line/)
+- [How do you speed up an insurance rating engine so it ranks first on the SAMA price aggregator?](https://www.dot-cc.com/case-studies/rating-engine-rank-one/)
+- [How do you detect motor insurance fraud with a rules-based process?](https://www.dot-cc.com/case-studies/motor-fraud-rules/)
+- [How do you find the real bottleneck in a manufacturer with six factories?](https://www.dot-cc.com/case-studies/find-factory-bottleneck/)
+- [How do you cut a payroll report for more than 10,000 employees from 18 hours to 16 seconds?](https://www.dot-cc.com/case-studies/payroll-report-18-hours-to-16-seconds/)
+- [How do you upload 750,000 motor policies in a single day?](https://www.dot-cc.com/case-studies/upload-750000-policies-in-a-day/)
+- [Can an independent financial audit recover unbilled amounts at a hospital?](https://www.dot-cc.com/case-studies/independent-hospital-financial-audit/)
+- [How does a payments company prepare its architecture for a SAMA technical audit and licence?](https://www.dot-cc.com/case-studies/payments-licensing-architecture/)
+
 ## Pricing
 
 Engagements across all three businesses start at 3,750 SAR per month. Exact scope and price are set after an initial conversation.
