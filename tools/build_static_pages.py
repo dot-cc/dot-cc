@@ -374,7 +374,11 @@ def faq_pairs(items):
     answer (Latin or Arabic question mark), for FAQPage structured data —
     purely mechanical, only text that already exists on the page."""
     pairs = []
+    # Interactive prompts on the tech studio page, not real questions with answers
+    skip = {"Where does it hurt?", "أين تكمن المشكلة؟"}
     for i, (tag, txt) in enumerate(items):
+        if txt.strip() in skip:
+            continue
         if tag in ("h2", "h3") and txt.strip().endswith(("?", "؟")) and len(txt) < 140:
             for j in range(i + 1, min(i + 4, len(items))):
                 if items[j][0] == "p":
@@ -445,10 +449,15 @@ PAGE_TMPL = """<!doctype html>
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
 <meta property="og:url" content="{url}">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="{domain}/og/{og}.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="{domain}/og/{og}.png">
 <meta name="twitter:title" content="{title}">
 <meta name="twitter:description" content="{desc}">
-<link rel="icon" href="{domain}/favicon.ico">
+<link rel="icon" href="{domain}/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="{domain}/apple-touch-icon.png">
 {schema}
 <style>
 :root{{--ink:#141414;--mut:#5c5c58;--line:#e6e4de;--bg:#faf9f6;--accent:{color};--on:{on}}}
@@ -508,6 +517,13 @@ def page_urls(paths):
     """paths: dict slug -> {'en': url_or_None, 'ar': url_or_None}"""
     return paths
 
+def _og_for(url):
+    """Share image per studio; group image for everything else."""
+    for key in ("tech-studio", "creative-consultancy", "creative-studio"):
+        if f"/{key}" in url:
+            return key
+    return "dot"
+
 def render_page(*, lang, title, desc, url, color, on, name, h1, body, hash_, schema_blocks,
                  home_url, foot_links, en_url=None, ar_url=None):
     dir_ = "rtl" if lang == "ar" else "ltr"
@@ -521,7 +537,7 @@ def render_page(*, lang, title, desc, url, color, on, name, h1, body, hash_, sch
         lang=lang, dir=dir_, title=html.escape(title), desc=html.escape(desc), url=url,
         hreflang=hreflang, schema=schema, color=color, on=on, home=home_url,
         name=html.escape(name), h1=html.escape(h1), body=body, domain=DOMAIN, hash=hash_,
-        cta=cta, tagline=tagline, footlinks=foot_links,
+        cta=cta, tagline=tagline, footlinks=foot_links, og=_og_for(url),
     )
 
 CASE_STUDY_PATH = "tech-studio-results"
