@@ -6,6 +6,8 @@ import { getStore, connectLambda } from "@netlify/blobs";
 export const handler = async (event) => {
   connectLambda(event);
   const { payload } = JSON.parse(event.body);
+  // Only website enquiries count as leads; client questionnaires do not.
+  if (payload?.form_name && payload.form_name !== "contact") return { statusCode: 200 };
   const ts = Date.now();
   const source = String(payload?.data?.source || "unknown").slice(0, 40);
   const test = payload?.data?.test === "true" || payload?.data?.test === true;
