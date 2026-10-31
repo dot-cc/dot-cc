@@ -51,6 +51,29 @@
   to = "/aiic/"
   status = 301
 
+# Client questionnaire (Aani & Dani): reachable by link only, kept out of search. Answers are emailed through
+# FormSubmit (formsubmit.co) to an@dot-cs.com, never into this repository. Built in the client-aani-dani repo
+# (build/questionnaire.py); never edited here.
+[[headers]]
+  for = "/aani-dani/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+[[redirects]]
+  from = "/Aani-Dani"
+  to = "/aani-dani/"
+  status = 301
+
+[[redirects]]
+  from = "/Aani-Dani/"
+  to = "/aani-dani/"
+  status = 301
+
+[[redirects]]
+  from = "/aanidani"
+  to = "/aani-dani/"
+  status = 301
+
 # Helixion brand guideline and platform prototype: reachable by link only, kept out of search.
 # Built in the Helixion repo (design-system/build/build.py, output/web/); never edited here.
 [[headers]]
