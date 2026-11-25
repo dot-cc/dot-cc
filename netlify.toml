@@ -131,6 +131,12 @@
 # Salma Naddaf (influencer, DIY home decor): one-page bio site, English and Arabic (#ar), public.
 # Built in the client-salma-naddaf repo (projects/salma-naddaf/site in amer-os); never edited here.
 # The collaboration form posts to FormSubmit (formsubmit.co), which emails sallomnono@gmail.com.
+# Her pricing page (/salma-naddaf/pricing/): link only, not linked from the site, kept out of search.
+[[headers]]
+  for = "/salma-naddaf/pricing/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
 [[redirects]]
   from = "/Salma_Naddaf"
   to = "/salma-naddaf/"

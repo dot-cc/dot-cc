@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Work with Salma Naddaf</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Three collaboration packages with Salma Naddaf, DIY home decor creator with 12.6M followers. Pick one and request a quote.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap">
+<style>
+/* Zain: Arabic display and text (SIL Open Font License) */
+@font-face{font-family:"Zain";src:url(/salma-naddaf/assets/fonts/zain-light.woff2) format("woff2");font-weight:300;font-display:swap}
+@font-face{font-family:"Zain";src:url(/salma-naddaf/assets/fonts/zain-regular.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Zain";src:url(/salma-naddaf/assets/fonts/zain-bold.woff2) format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:"Zain";src:url(/salma-naddaf/assets/fonts/zain-extrabold.woff2) format("woff2");font-weight:800;font-display:swap}
+
+/* Layout: same system as her bio page. Ivory ground, olive ink, honey kraft for the packages,
+   the dark olive band for the form. The flat-top hexagon from her shelf marks the recommended package. */
+:root{
+  --ivory:#F6EDE8; --cream:#EEDEBC; --taupe:#D3C0B0; --honey:#EABF94;
+  --gold:#EAC68A; --blush:#F0CBBA; --olive:#6E684B; --leaf:#7D7843; --ink:#55503A;
+  --f-en:"Montserrat", "Helvetica Neue", Arial, sans-serif;
+  --f-ar:"Zain", "Geeza Pro", "Noto Sans Arabic", sans-serif;
+  --t-body:clamp(16px,1.25vw,19px);
+  --glide:cubic-bezier(.16,1,.3,1);
+  --side:max(16px, env(safe-area-inset-left,0px), 5.56vw);
+  --side-r:max(16px, env(safe-area-inset-right,0px), 5.56vw);
+  --pad:clamp(72px,9vw,140px);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--ivory);color:var(--ink);font-family:var(--f-en);font-size:var(--t-body);line-height:1.6;font-synthesis:none;overflow-x:clip}
+img{max-width:100%;height:auto;display:block}
+[hidden]{display:none!important}
+a{color:inherit}
+::selection{background:var(--gold);color:var(--ink)}
+:focus-visible{outline:3px solid var(--gold);outline-offset:4px;box-shadow:0 0 0 1px var(--ink)}
+.wrap{padding-left:var(--side);padding-right:var(--side-r)}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px}
+.tool{position:absolute;pointer-events:none;z-index:2}
+.tool img{width:100%}
+
+.hl{margin:0;font-weight:800;letter-spacing:-.03em;line-height:.98;color:var(--olive);text-wrap:balance}
+.hl .i{display:block;font-style:italic;font-weight:300;letter-spacing:-.02em}
+.h1{font-size:clamp(40px,4.8vw,70px)}
+.h2{font-size:clamp(30px,3.6vw,52px);letter-spacing:-.025em}
+.label{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;line-height:1.2}
+.num{font-variant-numeric:tabular-nums lining-nums;font-weight:800;letter-spacing:-.03em}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6em;background:var(--ink);color:var(--ivory);text-decoration:none;font:700 16px/1 var(--f-en);letter-spacing:.01em;padding:17px 24px;border:0;border-radius:2px;cursor:pointer;transition:background .3s var(--glide)}
+.btn:hover{background:var(--olive)}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--ivory)}
+[lang="ar"] .btn{font-family:var(--f-ar);font-size:17px}
+
+/* Nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px;background:color-mix(in srgb,var(--ivory) 94%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--taupe)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:21;background:var(--ivory)}
+.wordmark{font-weight:700;font-size:18px;letter-spacing:-.01em;text-decoration:none}
+.nav-r{display:flex;align-items:center;gap:18px}
+.back{font-size:15px;font-weight:600;text-decoration:none;border-bottom:1.5px solid var(--leaf)}
+.lang{font:600 15px/1.2 var(--f-ar);padding:8px 14px;background:var(--cream);border:0;border-radius:2px;color:var(--ink);cursor:pointer}
+[lang="ar"] .lang{font-family:var(--f-en)}
+
+/* Hero */
+.hero{padding-block:clamp(56px,7vw,104px) clamp(40px,5vw,72px);position:relative;overflow:clip}
+.hero .grid{align-items:end;row-gap:32px}
+.hero-text{grid-column:1 / 8;display:grid;gap:24px;justify-items:start}
+.hero-text .lede{margin:0;max-width:52ch}
+.proof{grid-column:8 / 13;display:grid;gap:14px;margin:0}
+.proof div{display:flex;align-items:baseline;gap:12px;border-top:1px solid var(--taupe);padding-top:12px}
+.proof dd{order:-1;margin:0;font-size:clamp(30px,2.8vw,40px);line-height:1;color:var(--olive);min-width:3.4em}
+.proof dt{font-size:14px;line-height:1.35}
+.u{font-style:italic;font-weight:300;font-size:.5em;vertical-align:.62em;margin-left:.04em;letter-spacing:0}
+.t-tape{width:120px;top:24px;inset-inline-end:calc(var(--side-r) + 10px)}
+.t-tape img{transform:rotate(-14deg)}
+
+/* Packages */
+.packs{background:var(--cream);padding-block:var(--pad);position:relative}
+.packs-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:16px 40px;margin-bottom:48px}
+.packs-head p{margin:0;max-width:46ch;font-size:16px}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;align-items:stretch}
+.pack{position:relative;display:grid;grid-template-rows:auto auto auto 1fr auto auto;gap:16px;padding:32px 28px 28px;background:var(--ivory);box-shadow:0 18px 40px -30px rgba(85,80,58,.7)}
+.pack.pick{background:var(--honey) repeating-linear-gradient(90deg,transparent 0 5px,rgba(85,80,58,.045) 5px 6px)}
+.pack h3{margin:0;font-size:26px;font-weight:800;letter-spacing:-.02em;line-height:1.1;color:var(--olive)}
+.pack.pick h3{color:var(--ink)}
+.pack .for{margin:0;font-size:15px;line-height:1.45}
+.price{margin:0;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.price .from{font-size:14px;font-weight:600}
+.price .num{font-size:clamp(40px,3.6vw,54px);line-height:1;color:var(--ink)}
+.price .num.ask{font-size:clamp(26px,2.2vw,32px);line-height:1.15;letter-spacing:-.02em;color:var(--olive)}
+.price .cur{font-size:15px;font-weight:700}
+.incl{list-style:none;margin:0;padding:16px 0 0;border-top:1px solid rgba(85,80,58,.25);display:grid;gap:9px;align-content:start;font-size:15px;line-height:1.4}
+.incl li{display:grid;grid-template-columns:18px 1fr;gap:10px}
+.incl li::before{content:"";width:12px;height:10.4px;margin-top:5px;background:var(--leaf);clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%)}
+.expect{margin:0;font-size:14px;line-height:1.4;padding:12px 14px;background:rgba(246,237,232,.55)}
+.pack:not(.pick) .expect{background:var(--cream)}
+.expect b{font-weight:800}
+.pack .btn{width:100%}
+.badge{position:absolute;top:-14px;inset-inline-start:24px;display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:var(--gold);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:7px 12px 7px 10px}
+.badge svg{width:16px;height:14px}
+[lang="ar"] .badge{letter-spacing:0;font-size:13px}
+.t-ruler{width:230px;bottom:-26px;inset-inline-start:calc(50% - 115px);z-index:3}
+.t-ruler img{transform:rotate(-3deg)}
+
+.extras{margin-top:56px;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;row-gap:20px;align-items:start}
+.extras h3{grid-column:1 / 4;margin:0;font-size:20px;font-weight:800;letter-spacing:-.01em}
+.extras ul{grid-column:4 / 13;list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 32px}
+.extras li{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid rgba(85,80,58,.25);font-size:15px}
+.extras li b{font-weight:800;white-space:nowrap;font-variant-numeric:tabular-nums lining-nums}
+.terms{margin:40px 0 0;font-size:13px;line-height:1.55;max-width:90ch}
+
+/* Quote form: the dark band */
+.quote{background:var(--ink);color:var(--ivory);padding-block:var(--pad)}
+.quote .hl{color:var(--ivory)}
+.quote .hl .i{color:var(--gold)}
+.q-head{grid-column:1 / 5;display:grid;gap:20px;align-content:start}
+.q-head p{margin:0;font-size:16px}
+.q-form{grid-column:6 / 13;display:grid;gap:22px}
+fieldset{border:0;margin:0;padding:0;min-width:0}
+legend{font-size:14px;font-weight:700;margin-bottom:10px;padding:0}
+.choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.choice{position:relative}
+.choice input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
+.choice > span{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 16px;border:1.5px solid rgba(246,237,232,.35);border-radius:2px;font-size:15px;font-weight:600;transition:background .2s,border-color .2s,color .2s}
+.choice > span small{font-weight:600;font-size:13px;opacity:.9;font-variant-numeric:tabular-nums lining-nums}
+.choice input:checked + span{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+.choice input:focus-visible + span{outline:3px solid var(--gold);outline-offset:3px}
+.choice:hover > span{border-color:var(--gold)}
+.f-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.field{display:grid;gap:6px;min-width:0}
+.field.wide{grid-column:1 / -1}
+.field label{font-size:14px;font-weight:600}
+.opt{font-weight:400;opacity:.85}
+.field input,.field select,.field textarea{font:inherit;font-size:16px;color:var(--ink);background:#FBF7F4;border:1.5px solid transparent;border-radius:2px;padding:12px 14px;width:100%;min-width:0}
+.field textarea{resize:vertical;min-height:110px}
+.field select{appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--ink) 50%),linear-gradient(135deg,var(--ink) 50%,transparent 50%);background-position:calc(100% - 20px) 55%,calc(100% - 14px) 55%;background-size:6px 6px;background-repeat:no-repeat;padding-inline-end:40px}
+[dir="rtl"] .field select{background-position:20px 55%,26px 55%}
+.field input:focus-visible,.field select:focus-visible,.field textarea:focus-visible{outline:3px solid var(--gold);outline-offset:1px;box-shadow:none}
+[aria-invalid="true"]{border-color:#E08A73!important}
+.err{margin:0;font-size:13px;font-weight:700;color:#F3B4A2}
+.send-row{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px}
+.send-row .btn{background:var(--gold);color:var(--ink)}
+.send-row .btn:hover{background:var(--honey)}
+.note{margin:0;font-size:13px;opacity:.9;max-width:44ch}
+.done{grid-column:6 / 13;display:grid;gap:14px;align-content:start;padding:32px;background:rgba(246,237,232,.08);box-shadow:inset 0 0 0 1px rgba(246,237,232,.25)}
+.done .big{margin:0;font-size:28px;font-weight:800;color:var(--gold)}
+.done p{margin:0}
+.done code{font-family:var(--f-en);font-weight:700;user-select:all;-webkit-user-select:all}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 24px;font-size:13px;padding-block:28px calc(28px + env(safe-area-inset-bottom,0px))}
+.foot a{text-decoration:none;border-bottom:1px solid var(--leaf)}
+
+/* Reveals (motion only; at rest everything is in place) */
+.motion [data-rv]{transition:opacity .6s var(--glide),transform .6s var(--glide);transition-delay:var(--d,0ms)}
+.motion [data-rv]:not(.in){opacity:0;transform:translateY(32px)}
+
+/* Arabic */
+[lang="ar"] body{font-family:var(--f-ar);line-height:1.75;font-size:calc(var(--t-body) * 1.12)}
+[lang="ar"] .hl{font-weight:800;line-height:1.2;letter-spacing:0}
+[lang="ar"] .hl .i{font-style:normal;font-weight:300;letter-spacing:0}
+[lang="ar"] .label{text-transform:none;letter-spacing:0;font-size:14px;font-weight:700}
+[lang="ar"] .pack h3,[lang="ar"] .extras h3,[lang="ar"] .wordmark{letter-spacing:0}
+[lang="ar"] .num{font-family:var(--f-en)}
+[lang="ar"] .u{font-style:normal;font-weight:700;font-family:var(--f-ar);font-size:.36em;vertical-align:.9em}
+[lang="ar"] .btn .arr{display:inline-block;transform:scaleX(-1)}
+
+@media (max-width:1100px){
+  .cards{grid-template-columns:1fr;max-width:620px}
+  .t-ruler{display:none}
+  .q-head{grid-column:1 / -1}
+  .q-form,.done{grid-column:1 / -1;margin-top:40px}
+}
+@media (max-width:767px){
+  .grid{grid-template-columns:repeat(4,minmax(0,1fr));column-gap:16px}
+  .nav{height:56px}
+  .back{display:none}
+  .hero-text,.proof{grid-column:1 / -1}
+  .t-tape{width:80px;top:12px}
+  .extras h3,.extras ul{grid-column:1 / -1}
+  .extras ul{grid-template-columns:1fr}
+  .choices,.f-grid{grid-template-columns:1fr}
+  .pack{padding:30px 20px 22px}
+  .done{padding:24px}
+}
+@media (prefers-reduced-motion:reduce){
+  .btn,.choice > span{transition:none}
+}
+</style>
+</head>
+<body>
+
+<header class="nav wrap">
+  <a class="wordmark home-link" href="/salma-naddaf/" data-t="name">Salma Naddaf</a>
+  <div class="nav-r">
+    <a class="back home-link" href="/salma-naddaf/" data-t="back">Her page</a>
+    <button class="lang" id="lang" type="button" lang="ar">العربية</button>
+  </div>
+</header>
+
+<main>
+<!-- Hero: the offer in one line, with the proof beside it -->
+<section class="hero" aria-labelledby="h-top">
+  <div class="tool t-tape" aria-hidden="true"><img src="/salma-naddaf/assets/tools/masking-tape.webp" width="243" height="252" alt=""></div>
+  <div class="wrap grid">
+    <div class="hero-text">
+      <p class="label" style="margin:0" data-t="label">Collaboration packages</p>
+      <h1 class="hl h1" id="h-top" data-rv><span data-t="h1.a">Three ways to work</span><span class="i" data-t="h1.b">with Salma.</span></h1>
+      <p class="lede" data-rv style="--d:150ms" data-t="lede">Every package is one real build, filmed start to finish with your product in it. Pick a package, then send your details for a quote.</p>
+    </div>
+    <dl class="proof" data-rv style="--d:300ms">
+      <div><dt data-t="p.followers">followers on Facebook, TikTok, Instagram and YouTube</dt><dd class="num"><bdi dir="ltr">12.6</bdi><span class="u" data-t="M">M</span></dd></div>
+      <div><dt data-t="p.median">median views of her last three Instagram brand reels (0.8M to 5.5M)</dt><dd class="num"><bdi dir="ltr">2.4</bdi><span class="u" data-t="M">M</span></dd></div>
+      <div><dt data-t="p.month">Instagram views in the last 30 days</dt><dd class="num"><bdi dir="ltr">27.2</bdi><span class="u" data-t="M">M</span></dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- Packages -->
+<section class="packs" aria-labelledby="h-packs">
+  <div class="wrap">
+    <div class="packs-head">
+      <h2 class="hl h2" id="h-packs" data-rv><span data-t="h2.a">Pick your package.</span><span class="i" data-t="h2.b">Prices in US dollars.</span></h2>
+      <p data-rv style="--d:150ms" data-t="packs.sub">Each price covers the idea, the materials for the build, filming, editing and posting. Expected views come from her own campaign results.</p>
+    </div>
+    <div class="cards" id="cards">
+      <article class="pack" data-rv data-pack="spotlight">
+        <h3 data-t="k1.name">Spotlight</h3>
+        <p class="for" data-t="k1.for">One build on her strongest channel. For a launch or a single product.</p>
+        <p class="price"><span class="from" data-t="from">From</span><span class="num"><bdi dir="ltr" data-price="spotlight">$4,500</bdi></span></p>
+        <ul class="incl">
+          <li data-t="k1.i1">1 Instagram collab reel: your product inside her build</li>
+          <li data-t="k1.i2">The same reel on her Facebook page</li>
+          <li data-t="k1.i3">3 Instagram stories with your link</li>
+          <li data-t="k1.i4">Results report with her insight screenshots</li>
+        </ul>
+        <p class="expect"><span data-t="exp">Expected:</span> <b data-t="k1.exp">about 2M to 2.5M views</b></p>
+        <button type="button" class="btn ghost" data-choose="spotlight"><span data-t="k1.cta">Choose Spotlight</span></button>
+      </article>
+      <article class="pack pick" data-rv style="--d:120ms" data-pack="signature">
+        <span class="badge"><svg viewBox="0 0 100 86.6" aria-hidden="true"><polygon points="25,4 75,4 96,43.3 75,82.6 25,82.6 4,43.3" fill="none" stroke="currentColor" stroke-width="10" stroke-linejoin="round"/></svg><span data-t="pick">Our pick</span></span>
+        <h3 data-t="k2.name">Signature</h3>
+        <p class="for" data-t="k2.for">One build on all four platforms. The most reach for the budget.</p>
+        <p class="price"><span class="from" data-t="from">From</span><span class="num"><bdi dir="ltr" data-price="signature">$7,500</bdi></span></p>
+        <ul class="incl">
+          <li data-t="k2.i1">1 Instagram collab reel</li>
+          <li data-t="k2.i2">1 TikTok video</li>
+          <li data-t="k2.i3">1 Facebook reel</li>
+          <li data-t="k2.i4">1 YouTube Short</li>
+          <li data-t="k2.i5">5 Instagram stories with your link</li>
+          <li data-t="k2.i6">30 days to repost the video on your own pages</li>
+          <li data-t="k2.i7">Results report</li>
+        </ul>
+        <p class="expect"><span data-t="exp">Expected:</span> <b data-t="k2.exp">about 5M to 6M views across four platforms</b></p>
+        <button type="button" class="btn" data-choose="signature"><span data-t="k2.cta">Choose Signature</span></button>
+      </article>
+      <article class="pack" data-rv style="--d:240ms" data-pack="custom">
+        <h3 data-t="k3.name">Design your plan</h3>
+        <p class="for" data-t="k3.for">Build your own mix for a bigger launch or a longer partnership. Tell us your goal and we shape the plan with you.</p>
+        <p class="price"><span class="num ask" data-t="k3.price">Priced for your plan</span></p>
+        <ul class="incl">
+          <li data-t="k3.i1">Any mix of Instagram, TikTok, Facebook and YouTube</li>
+          <li data-t="k3.i2">One build or a series over several months</li>
+          <li data-t="k3.i3">A dedicated YouTube makeover video (10 to 15 minutes)</li>
+          <li data-t="k3.i4">Extra stories, extra TikToks, more builds</li>
+          <li data-t="k3.i5">Rights to repost and boost the videos from her account</li>
+          <li data-t="k3.i6">Category exclusivity</li>
+          <li data-t="k3.i7">Monthly results report</li>
+        </ul>
+        <p class="expect"><span data-t="exp">Expected:</span> <b data-t="k3.exp">set with you, from her real numbers</b></p>
+        <button type="button" class="btn ghost" data-choose="custom"><span data-t="k3.cta">Design my plan</span></button>
+        <div class="tool t-ruler" aria-hidden="true"><img src="/salma-naddaf/assets/tools/wooden-ruler.webp" width="330" height="86" alt=""></div>
+      </article>
+    </div>
+
+    <p class="terms" data-t="terms">Prices exclude taxes, paid ad spend and travel. Design your plan is quoted after we hear from you. Expected views are estimates from her recent results (her last three Instagram brand reels reached 0.8M, 2.4M and 5.5M views), not a guarantee. The final quote depends on the product, timing and usage rights.</p>
+  </div>
+</section>
+
+<!-- Quote request -->
+<section class="quote" id="request" aria-labelledby="h-quote">
+  <div class="wrap grid">
+    <div class="q-head">
+      <h2 class="hl h2" id="h-quote" data-rv><span data-t="h3.a">Request a quote.</span><span class="i" data-t="h3.b">Salma replies with a plan.</span></h2>
+      <p data-rv style="--d:150ms" data-t="q.sub">Tell us about your brand and the package you like. You will get a tailored quote with dates.</p>
+    </div>
+    <form class="q-form" id="qform" novalidate>
+      <fieldset>
+        <legend data-t="f.pack">Package</legend>
+        <div class="choices" id="choices">
+          <label class="choice"><input type="radio" name="package" value="Spotlight" data-key="spotlight"><span><span data-t="k1.name">Spotlight</span><small><bdi dir="ltr" data-price="spotlight">$4,500</bdi></small></span></label>
+          <label class="choice"><input type="radio" name="package" value="Signature" data-key="signature"><span><span data-t="k2.name">Signature</span><small><bdi dir="ltr" data-price="signature">$7,500</bdi></small></span></label>
+          <label class="choice"><input type="radio" name="package" value="Design your plan" data-key="custom"><span><span data-t="k3.name">Design your plan</span></span></label>
+          <label class="choice"><input type="radio" name="package" value="Not sure yet" data-key="unsure"><span><span data-t="f.unsure">Not sure yet</span></span></label>
+        </div>
+        <p class="err" id="e-package" hidden></p>
+      </fieldset>
+      <div class="f-grid">
+        <div class="field"><label for="q-name" data-t="f.name">Full name</label><input id="q-name" name="name" type="text" autocomplete="name" required aria-describedby="q-name-err"><p class="err" id="q-name-err" hidden></p></div>
+        <div class="field"><label for="q-company" data-t="f.company">Company</label><input id="q-company" name="company" type="text" autocomplete="organization" required aria-describedby="q-company-err"><p class="err" id="q-company-err" hidden></p></div>
+        <div class="field"><label for="q-email" data-t="f.email">Email</label><input id="q-email" name="email" type="email" autocomplete="email" dir="ltr" inputmode="email" spellcheck="false" required aria-describedby="q-email-err"><p class="err" id="q-email-err" hidden></p></div>
+        <div class="field"><label for="q-phone" data-t="f.phone">Phone number</label><input id="q-phone" name="phone" type="tel" autocomplete="tel" dir="ltr" inputmode="tel" required aria-describedby="q-phone-err"><p class="err" id="q-phone-err" hidden></p></div>
+        <div class="field"><label for="q-site"><span data-t="f.site">Website or Instagram</span> <span class="opt" data-t="f.optional">(optional)</span></label><input id="q-site" name="website" type="text" dir="ltr" autocomplete="url" spellcheck="false"></div>
+        <div class="field"><label for="q-when"><span data-t="f.when">When do you want to start?</span> <span class="opt" data-t="f.optional">(optional)</span></label>
+          <select id="q-when" name="start">
+            <option value="" data-t="w.0">Choose one</option>
+            <option value="Within a month" data-t="w.1">Within a month</option>
+            <option value="In 1 to 3 months" data-t="w.2">In 1 to 3 months</option>
+            <option value="Later" data-t="w.3">Later</option>
+          </select></div>
+        <div class="field wide"><label for="q-msg"><span data-t="f.msg">Your product and goal</span> <span class="opt" data-t="f.optional">(optional)</span></label><textarea id="q-msg" name="message" rows="4" dir="auto"></textarea></div>
+      </div>
+      <div class="send-row">
+        <button type="submit" class="btn"><span data-t="f.send">Request my quote</span><span class="arr" aria-hidden="true">→</span></button>
+        <p class="note" id="q-note" data-t="f.note">Your request goes straight to Salma's collaboration inbox.</p>
+      </div>
+    </form>
+    <div class="done" id="qdone" hidden tabindex="-1">
+      <p class="big" id="d-h" data-t="d.h">Thank you.</p>
+      <p id="d-p" data-t="d.p">Your request was sent. Salma will reply with a tailored quote.</p>
+      <p id="d-mail" hidden><span data-t="d.mail">If nothing opened, write to her directly:</span> <code>sallomnono@gmail.com</code></p>
+      <button type="button" class="btn" id="d-again" style="justify-self:start;background:var(--gold);color:var(--ink)"><span data-t="d.again">Send another request</span></button>
+    </div>
+  </div>
+  <footer class="foot wrap">
+    <span data-t="copyright">© 2026 Salma Naddaf</span>
+    <a class="home-link" href="/salma-naddaf/" data-t="back">Her page</a>
+  </footer>
+</section>
+</main>
+
+<script>
+(() => {
+"use strict";
+/* Prices live here, in USD. Change a number once and every place on the page follows. */
+const PRICES = {spotlight: 4500, signature: 7500};
+const FORM_ENDPOINT = "https://formsubmit.co/ajax/sallomnono@gmail.com";  /* FormSubmit emails each request; same inbox as her page */
+const MAIL_TO = "sallomnono@gmail.com";
+
+const AR = {
+  "name":"سلمى نداف","back":"صفحتها","label":"باقات التعاون","M":" مليون",
+  "h1.a":"ثلاث طرق للعمل","h1.b":"مع سلمى.",
+  "lede":"كل باقة هي قطعة حقيقية تصنعها سلمى وتصوّرها من البداية حتى النهاية ومنتجك جزء منها. اختر الباقة، ثم أرسل بياناتك لتصلك عرض السعر.",
+  "p.followers":"متابع على فيسبوك وتيك توك وإنستغرام ويوتيوب","p.median":"الوسيط لمشاهدات آخر ثلاثة فيديوهات لها مع علامات على إنستغرام (من 0.8 إلى 5.5 مليون)","p.month":"مشاهدة على إنستغرام في آخر 30 يوماً",
+  "h2.a":"اختر باقتك.","h2.b":"الأسعار بالدولار الأمريكي.",
+  "packs.sub":"يشمل كل سعر الفكرة ومواد التنفيذ والتصوير والمونتاج والنشر. المشاهدات المتوقعة مأخوذة من نتائج حملاتها الفعلية.",
+  "from":"ابتداءً من","exp":"المتوقع:","pick":"اختيارنا",
+  "k1.name":"سبوتلايت","k1.for":"قطعة واحدة على أقوى قنواتها. لإطلاق منتج أو منتج واحد.",
+  "k1.i1":"فيديو ريلز مشترك على إنستغرام: منتجك داخل القطعة التي تصنعها","k1.i2":"الفيديو نفسه على صفحتها في فيسبوك","k1.i3":"3 قصص على إنستغرام مع رابطك","k1.i4":"تقرير نتائج مع لقطات من إحصاءاتها","k1.exp":"نحو 2 إلى 2.5 مليون مشاهدة","k1.cta":"اختر سبوتلايت",
+  "k2.name":"سيغنتشر","k2.for":"قطعة واحدة على المنصات الأربع. أوسع وصول مقابل الميزانية.",
+  "k2.i1":"فيديو ريلز مشترك على إنستغرام","k2.i2":"فيديو على تيك توك","k2.i3":"ريلز على فيسبوك","k2.i4":"فيديو قصير على يوتيوب","k2.i5":"5 قصص على إنستغرام مع رابطك","k2.i6":"30 يوماً لإعادة نشر الفيديو على صفحاتك","k2.i7":"تقرير نتائج","k2.exp":"نحو 5 إلى 6 ملايين مشاهدة على أربع منصات","k2.cta":"اختر سيغنتشر",
+  "k3.name":"صمّم خطتك","k3.for":"اختر المزيج الذي يناسبك لإطلاق أكبر أو شراكة أطول. أخبرنا بهدفك ونصمّم الخطة معك.","k3.price":"سعر حسب خطتك",
+  "k3.i1":"أي مزيج من إنستغرام وتيك توك وفيسبوك ويوتيوب","k3.i2":"قطعة واحدة أو سلسلة على عدة أشهر","k3.i3":"فيديو تجديد مخصص على يوتيوب (من 10 إلى 15 دقيقة)","k3.i4":"قصص إضافية وفيديوهات تيك توك إضافية وقطع أكثر","k3.i5":"حقوق إعادة نشر الفيديوهات وترويجها من حسابها","k3.i6":"حصرية في فئتك","k3.i7":"تقرير نتائج شهري","k3.exp":"نحدده معك من أرقامها الفعلية","k3.cta":"صمّم خطتي",
+  "terms":"الأسعار لا تشمل الضرائب وميزانية الإعلانات المدفوعة والسفر. نسعّر خيار «صمّم خطتك» بعد أن نسمع منك. المشاهدات المتوقعة تقديرات من نتائجها الأخيرة (آخر ثلاثة فيديوهات مع علامات على إنستغرام وصلت إلى 0.8 و2.4 و5.5 مليون مشاهدة)، وليست ضماناً. يعتمد العرض النهائي على المنتج والتوقيت وحقوق الاستخدام.",
+  "h3.a":"اطلب عرض سعر.","h3.b":"وسلمى ترد بخطة.",
+  "q.sub":"أخبرنا عن علامتك والباقة التي تناسبك، وسيصلك عرض سعر مفصّل مع المواعيد.",
+  "f.pack":"الباقة","f.unsure":"لم أقرر بعد","f.name":"الاسم الكامل","f.company":"الشركة","f.email":"البريد الإلكتروني","f.phone":"رقم الهاتف","f.site":"الموقع أو حساب إنستغرام","f.optional":"(اختياري)",
+  "f.when":"متى تريد البدء؟","w.0":"اختر","w.1":"خلال شهر","w.2":"خلال شهر إلى 3 أشهر","w.3":"لاحقاً","f.msg":"منتجك وهدفك",
+  "f.send":"اطلب عرض السعر","f.note":"يصل طلبك مباشرة إلى بريد التعاون الخاص بسلمى.","f.sending":"جارٍ إرسال طلبك.",
+  "d.h":"شكراً لك.","d.p":"وصل طلبك، وسترد سلمى بعرض سعر مفصّل.","d.h2":"بقيت خطوة واحدة.","d.p2":"يُفترض أن تطبيق البريد مفتوح الآن وفيه طلبك. اضغط إرسال هناك ليصل إلى سلمى.","d.mail":"إن لم يُفتح شيء، راسلها مباشرة على:","d.again":"أرسل طلباً آخر",
+  "copyright":"© 2026 سلمى نداف",
+  "e.package":"اختر باقة، أو «لم أقرر بعد».","e.name":"اكتب اسمك.","e.company":"اكتب اسم الشركة.","e.email":"اكتب بريداً إلكترونياً صحيحاً، مثل name@company.com.","e.phone":"اكتب رقم هاتف صحيحاً مع رمز الدولة، مثل ‎+966 5x xxx xxxx."
+};
+const EN = {
+  "f.sending":"Sending your request.","d.h2":"One step left.","d.p2":"Your email app should now be open with your request filled in. Press send there to reach Salma.",
+  "e.package":"Choose a package, or Not sure yet.","e.name":"Enter your name.","e.company":"Enter your company name.","e.email":"Enter a valid email, like name@company.com.","e.phone":"Enter a valid phone number with the country code, like +966 5x xxx xxxx."
+};
+
+const root = document.documentElement;
+const $ = (s, r=document) => r.querySelector(s), $$ = (s, r=document) => [...r.querySelectorAll(s)];
+let lang = "en";
+const t = k => (lang === "ar" ? AR[k] : EN[k]) ?? EN[k] ?? enText.get(k) ?? k;
+const fmt = n => "$" + n.toLocaleString("en-US");
+
+/* Prices from the one table */
+$$("[data-price]").forEach(el => { const v = PRICES[el.dataset.price]; if (v) el.textContent = fmt(v); });
+
+/* Language */
+const enText = new Map();
+$$("[data-t]").forEach(el => { if (!enText.has(el.dataset.t)) enText.set(el.dataset.t, el.textContent); });
+function applyLang(next){
+  lang = next; root.lang = lang; root.dir = lang === "ar" ? "rtl" : "ltr";
+  $$("[data-t]").forEach(el => { const k = el.dataset.t; el.textContent = lang === "ar" ? (AR[k] ?? enText.get(k)) : enText.get(k); });
+  const b = $("#lang"); b.textContent = lang === "ar" ? "English" : "العربية"; b.lang = lang === "ar" ? "en" : "ar";
+  document.title = lang === "ar" ? "اعمل مع سلمى نداف" : "Work with Salma Naddaf";
+  $$(".home-link").forEach(a => a.setAttribute("href", lang === "ar" ? "/salma-naddaf/#ar" : "/salma-naddaf/"));
+  try { history.replaceState(null, "", lang === "ar" ? "#ar" : location.pathname); } catch(e) {}
+  $$(".err").forEach(e => { if (!e.hidden && e.dataset.k) e.textContent = t("e." + e.dataset.k); });
+}
+$("#lang").addEventListener("click", () => applyLang(lang === "ar" ? "en" : "ar"));
+
+/* Choose a package card: tick it in the form and go to the form */
+const RM = matchMedia("(prefers-reduced-motion: reduce)");
+$$("[data-choose]").forEach(b => b.addEventListener("click", () => {
+  const r = $(`#choices input[data-key="${b.dataset.choose}"]`); r.checked = true; checkPackage();
+  $("#request").scrollIntoView({behavior: RM.matches ? "auto" : "smooth", block: "start"});
+  setTimeout(() => r.focus({preventScroll: true}), RM.matches ? 0 : 500);
+}));
+
+/* Form */
+const form = $("#qform"), done = $("#qdone");
+const RULES = {
+  name: v => v.trim().length >= 2,
+  company: v => v.trim().length >= 1,
+  email: v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()),
+  phone: v => { const dg = v.replace(/\D/g, ""); return /^\+?[\d\s().-]+$/.test(v.trim()) && dg.length >= 7 && dg.length <= 15; }
+};
+function showErr(el, errEl, key, ok){
+  if (el) el.setAttribute("aria-invalid", ok ? "false" : "true");
+  errEl.hidden = ok; errEl.dataset.k = key; errEl.textContent = ok ? "" : t("e." + key); return ok;
+}
+function checkField(n){ const el = form.elements[n]; return showErr(el, $("#" + el.id + "-err"), n, RULES[n](el.value)); }
+function checkPackage(){ const ok = !!form.querySelector('input[name="package"]:checked'); return showErr(null, $("#e-package"), "package", ok); }
+Object.keys(RULES).forEach(n => form.elements[n].addEventListener("blur", () => { if (form.elements[n].value) checkField(n); }));
+form.addEventListener("input", e => { const n = e.target.name; if (RULES[n] && e.target.getAttribute("aria-invalid") === "true") checkField(n); });
+form.addEventListener("change", e => { if (e.target.name === "package") checkPackage(); });
+
+function finish(sent){
+  $("#d-h").textContent = t(sent ? "d.h" : "d.h2");
+  $("#d-p").textContent = t(sent ? "d.p" : "d.p2");
+  $("#d-mail").hidden = sent;
+  form.hidden = true; done.hidden = false; done.focus();
+}
+$("#d-again").addEventListener("click", () => { done.hidden = true; form.hidden = false; form.elements.name.focus(); });
+
+form.addEventListener("submit", async e => {
+  e.preventDefault();
+  const pOk = checkPackage();
+  const bad = Object.keys(RULES).filter(n => !checkField(n));
+  if (!pOk) { form.querySelector('input[name="package"]').focus(); return; }
+  if (bad.length) { form.elements[bad[0]].focus(); return; }
+  const f = Object.fromEntries(new FormData(form));
+  const key = form.querySelector('input[name="package"]:checked').dataset.key;
+  const priceText = PRICES[key] ? ` (from ${fmt(PRICES[key])})` : "";
+  /* Wait at most 15 seconds for the inbox service; if it does not confirm, open the email app instead. */
+  const btn = form.querySelector('button[type="submit"]'), note = $("#q-note");
+  btn.disabled = true; btn.setAttribute("aria-busy", "true"); note.textContent = t("f.sending");
+  const ctl = new AbortController(), timer = setTimeout(() => ctl.abort(), 15000);
+  let sent = false;
+  try {
+    const res = await fetch(FORM_ENDPOINT, {method:"POST", headers:{"Content-Type":"application/json", "Accept":"application/json"}, signal: ctl.signal,
+      body: JSON.stringify({_subject: `Quote request: ${f.package}, ${f.company}`, _template: "table", _captcha: "false",
+        "Package": f.package + priceText, "Full name": f.name, "Company": f.company, email: f.email, "Phone": f.phone,
+        "Website or Instagram": f.website || "", "Start": f.start || "", "Product and goal": f.message || "", "Page language": lang})});
+    const j = await res.json().catch(() => ({}));
+    sent = res.ok && String(j.success) === "true";
+  } catch(_) { sent = false; }
+  finally { clearTimeout(timer); btn.disabled = false; btn.removeAttribute("aria-busy"); note.textContent = t("f.note"); }
+  if (sent) { form.reset(); finish(true); return; }
+  const body = [`Package: ${f.package}${priceText}`, `Name: ${f.name}`, `Company: ${f.company}`, `Email: ${f.email}`, `Phone: ${f.phone}`,
+    `Website or Instagram: ${f.website || ""}`, `Start: ${f.start || ""}`, "", f.message || ""].join("\n");
+  location.href = `mailto:${MAIL_TO}?subject=${encodeURIComponent(`Quote request: ${f.package}, ${f.company}`)}&body=${encodeURIComponent(body)}`;
+  finish(false);
+});
+
+/* Reveals */
+if (!RM.matches) {
+  root.classList.add("motion");
+  const io = new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting) { x.target.classList.add("in"); io.unobserve(x.target); } }), {threshold:.15});
+  $$("[data-rv]").forEach(el => io.observe(el));
+}
+
+applyLang(location.hash === "#ar" ? "ar" : "en");
+})();
+</script>
+</body>
+</html>
